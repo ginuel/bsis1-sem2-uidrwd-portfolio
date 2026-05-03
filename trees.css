@@ -1,0 +1,16 @@
+.ground-layer {
+  position: fixed; /* Keeps it locked to the screen */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10; /* Ensures it stays in front of the sky */
+}
+
+.ground-layer img {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* If you want the ground to repeat horizontally, 
+     it's better to use background-image instead of <img> */
+}
+

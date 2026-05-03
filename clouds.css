@@ -1,0 +1,21 @@
+
+.sky-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 200vh; /* Loop buffer */
+    background-repeat: repeat;
+    background-position: center top;
+    image-rendering: pixelated; /* Keeps blocky edges sharp */
+    pointer-events: none;
+    z-index: -1;
+    /* Hint to browser to keep this on the GPU */
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+}
+
+#layer-back { opacity: 0.2; z-index: -3; }
+#layer-mid  { opacity: 0.4; z-index: -2; }
+#layer-front { opacity: 0.7; z-index: -1; }
+

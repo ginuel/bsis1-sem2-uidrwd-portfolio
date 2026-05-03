@@ -1,0 +1,32 @@
+/* clouds.css */
+body {
+    background-color: #5392ff;
+    margin: 0;
+    /* Large height to ensure we can scroll a lot */
+    height: 10000px; 
+    overflow-x: hidden;
+}
+
+.sky-layer {
+    /* The layers are fixed and always fill exactly one screen */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    
+    /* This handles the "continuation" automatically */
+    background-repeat: repeat;
+    
+    image-rendering: pixelated;
+    pointer-events: none;
+    z-index: -1;
+    
+    /* Performance optimization */
+    will-change: background-position;
+}
+
+#layer-back { opacity: 0.3; z-index: -3; }
+#layer-mid  { opacity: 0.6; z-index: -2; }
+#layer-front { opacity: 1.0; z-index: -1; }
+

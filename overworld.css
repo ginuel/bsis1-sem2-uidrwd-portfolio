@@ -1,0 +1,20 @@
+.sky-viewport {
+  height: 100svh !important; /* Mobile UI fix */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.mc-scene {
+  /* Keeps the blocky stone and jitters sharp */
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  width: 100%;
+}
+
+.stone-filler {
+  background-color: #808080; /* Matches front stone layer */
+  min-height: 100vh;
+  margin-top: -1px; /* Seamless transition */
+}

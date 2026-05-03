@@ -1,0 +1,12 @@
+<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dirt Base -->
+  <rect x="0" y="20" width="80" height="60" fill="#866043" />
+  <!-- Grass Top -->
+  <rect x="0" y="0" width="80" height="30" fill="#5da037" />
+  <!-- Grass "Drips" (Pixelated edge) -->
+  <rect x="0" y="30" width="10" height="10" fill="#5da037" />
+  <rect x="20" y="30" width="20" height="10" fill="#5da037" />
+  <rect x="50" y="30" width="10" height="15" fill="#5da037" />
+  <rect x="70" y="30" width="10" height="10" fill="#5da037" />
+</svg>
+

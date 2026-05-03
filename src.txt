@@ -1,0 +1,852 @@
+trees.css:1:.ground-layer {
+trees.css:2:  position: fixed; /* Keeps it locked to the screen */
+trees.css:3:  bottom: 0;
+trees.css:4:  left: 0;
+trees.css:5:  width: 100%;
+trees.css:6:  z-index: 10; /* Ensures it stays in front of the sky */
+trees.css:7:}
+trees.css:9:.ground-layer img {
+trees.css:10:  width: 100%;
+trees.css:11:  height: auto;
+trees.css:12:  display: block;
+trees.css:13:  /* If you want the ground to repeat horizontally, 
+trees.css:14:     it's better to use background-image instead of <img> */
+trees.css:15:}
+sun.css:1:.sun-layer {
+sun.css:2:    position: fixed;
+sun.css:3:    top: 0;
+sun.css:4:    left: 0;
+sun.css:5:    width: 500px;
+sun.css:6:    height: 500px;
+sun.css:7:    z-index: -4;
+sun.css:8:    pointer-events: none;
+sun.css:9:    opacity: 0;
+sun.css:10:    
+sun.css:11:    /* Center the sun's body on its transform coordinates */
+sun.css:12:    transform: translate(-50%, -50%);
+sun.css:13:    
+sun.css:14:    /* Smooth out the parallax drift */
+sun.css:15:    transition: transform 0.1s ease-out;
+sun.css:16:    will-change: transform;
+sun.css:17:}
+sun.css:19:.sun-layer img {
+sun.css:20:    width: 100%;
+sun.css:21:    height: 100%;
+sun.css:22:    animation: sun-pulse-glow 6s infinite ease-in-out;
+sun.css:23:}
+sun.css:25:@keyframes sun-pulse-glow {
+sun.css:26:    0%, 100% {
+sun.css:27:        filter: drop-shadow(0 0 25px #e67e22) drop-shadow(0 0 60px #f1c40f);
+sun.css:28:        transform: scale(1.0);
+sun.css:29:    }
+sun.css:30:    50% {
+sun.css:31:        filter: drop-shadow(0 0 15px #e67e22) drop-shadow(0 0 30px #f1c40f);
+sun.css:32:        transform: scale(0.92);
+sun.css:33:    }
+sun.css:34:}
+sun.js:1:window.addEventListener('DOMContentLoaded', () => {
+sun.js:2:    const sun = document.getElementById('celestial-sun');
+sun.js:3:    let isTimerFinished = false;
+sun.js:5:    // 1. Calculate the fixed pixel starting point (50% of screen) immediately
+sun.js:6:    const initialX = window.innerWidth * 0.5;
+sun.js:7:    const initialY = window.innerHeight * 0.5;
+sun.js:9:    const updateSunPosition = () => {
+sun.js:10:        const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+sun.js:11:        const driftY = scrollY * 0.02;
+sun.js:13:        // 2. Construct and apply the transform
+sun.js:14:        const transformValue = `translate(-50%, -50%) translate3d(${initialX}px, ${initialY + driftY}px, 0)`;
+sun.js:15:        sun.style.transform = transformValue;
+sun.js:16:        
+sun.js:17:        // 3. Reveal logic: Only show if 5 seconds have passed
+sun.js:18:        if (isTimerFinished) {
+sun.js:19:            sun.style.opacity = "1";
+sun.js:20:        }
+sun.js:21:    };
+sun.js:23:    // 4. Start the 5-second countdown
+sun.js:24:    setTimeout(() => {
+sun.js:25:        isTimerFinished = true;
+sun.js:26:        updateSunPosition(); // Trigger the reveal immediately after 5s
+sun.js:27:    }, 500);
+sun.js:29:    // Initial position call (keeps it hidden but placed)
+sun.js:30:    updateSunPosition();
+sun.js:32:    // High-performance scroll listener
+sun.js:33:    let ticking = false;
+sun.js:34:    window.addEventListener('scroll', () => {
+sun.js:35:        if (!ticking) {
+sun.js:36:            window.requestAnimationFrame(() => {
+sun.js:37:                updateSunPosition();
+sun.js:38:                ticking = false;
+sun.js:39:            });
+sun.js:40:            ticking = true;
+sun.js:41:        }
+sun.js:42:    }, { passive: true });
+sun.js:43:});
+overworld.js:1:/**
+overworld.js:2: * Overworld Layer Controller
+overworld.js:3: * Manages the images/overworld.svg asset and vertical parallax.
+overworld.js:4: */
+overworld.js:5:const OverworldController = {
+overworld.js:6:    config: {
+overworld.js:7:        path: 'images/overworld.svg',
+overworld.js:8:        width: window.innerWidth,
+overworld.js:9:        screenH: window.innerHeight,
+overworld.js:10:        stoneDepth: 10000,
+overworld.js:11:        containerId: 'overworld-layer',
+overworld.js:12:        imageId: 'crust-file'
+overworld.js:13:    },
+overworld.js:15:    init() {
+overworld.js:16:        const img = document.getElementById(this.config.imageId);
+overworld.js:17:        
+overworld.js:18:        // Listen for error: if images/overworld.svg doesn't exist, generate it
+overworld.js:19:        img.onerror = () => {
+overworld.js:20:            console.warn(`${this.config.path} not found. Generating procedural overworld...`);
+overworld.js:21:            this.generateFallback();
+overworld.js:22:        };
+overworld.js:24:        // Set the initial source
+overworld.js:25:        img.src = this.config.path;
+overworld.js:27:        this.bindParallax();
+overworld.js:28:    },
+overworld.js:30:    /**
+overworld.js:31:     * Creates a procedural SVG if the physical file is missing
+overworld.js:32:     */
+overworld.js:33:    generateFallback() {
+overworld.js:34:        const { width, screenH, stoneDepth } = this.config;
+overworld.js:36:        const svgContent = `
+overworld.js:37:            <svg width="${width}" height="${screenH + stoneDepth}" xmlns="http://www.w3.org/2000/svg">
+overworld.js:38:                <rect x="0" y="${screenH}" width="${width}" height="40" fill="#5da037" />
+overworld.js:39:                <rect x="0" y="${screenH + 40}" width="${width}" height="120" fill="#866043" />
+overworld.js:40:                <rect x="0" y="${screenH + 160}" width="${width}" height="${stoneDepth}" fill="#7b7b7b" />
+overworld.js:41:            </svg>
+overworld.js:42:        `;
+overworld.js:44:        const blob = new Blob([svgContent], { type: 'image/svg+xml' });
+overworld.js:45:        const url = URL.createObjectURL(blob);
+overworld.js:46:        document.getElementById(this.config.imageId).src = url;
+overworld.js:47:    },
+overworld.js:49:    bindParallax() {
+overworld.js:50:        window.addEventListener('scroll', () => {
+overworld.js:51:            const scrollY = window.pageYOffset;
+overworld.js:52:            const layer = document.getElementById(this.config.containerId);
+overworld.js:53:            if (layer) {
+overworld.js:54:                // Moves the overworld up 1:1 with the scroll
+overworld.js:55:                layer.style.transform = `translateY(${-scrollY}px) translateZ(0)`;
+overworld.js:56:            }
+overworld.js:57:        }, { passive: true });
+overworld.js:58:    }
+overworld.js:59:};
+overworld.js:61:OverworldController.init();
+world.css:1:body {
+world.css:2:    background-color: #5392ff;
+world.css:3:    margin: 0;
+world.css:4:    overflow-x: hidden;
+world.css:5:}
+clouds.js:1:/**
+clouds.js:2: * CLOUDS.JS - Check-or-Bake Workflow
+clouds.js:3: */
+clouds.js:5:const layerSettings = [
+clouds.js:6:    { 
+clouds.js:7:        id: 'layer-back', 
+clouds.js:8:        path: 'baked/cloud_back.png', 
+clouds.js:9:        speed: 0.03, blockSize: 12, threshold: 0.48, scale: 0.03, mapW: 128, mapH: 256
+clouds.js:10:    },
+clouds.js:11:    { 
+clouds.js:12:        id: 'layer-mid', 
+clouds.js:13:        path: 'baked/cloud_mid.png', 
+clouds.js:14:        speed: 0.09, blockSize: 20, threshold: 0.52, scale: 0.05, mapW: 64, mapH: 128 
+clouds.js:15:    },
+clouds.js:16:    { 
+clouds.js:17:        id: 'layer-front', 
+clouds.js:18:        path: 'baked/cloud_front.png', 
+clouds.js:19:        speed: 0.20, blockSize: 32, threshold: 0.56, scale: 0.08, mapW: 32, mapH: 64 
+clouds.js:20:    }
+clouds.js:21:];
+clouds.js:23:const cloudLayers = [];
+clouds.js:25:/**
+clouds.js:26: * Attempt to load file; Bake if it fails.
+clouds.js:27: */
+clouds.js:28:function loadOrBake(set) {
+clouds.js:29:    return new Promise((resolve) => {
+clouds.js:30:        const img = new Image();
+clouds.js:31:        img.src = set.path;
+clouds.js:33:        img.onload = () => {
+clouds.js:34:            console.log(`Loaded baked file: ${set.path}`);
+clouds.js:35:            resolve(set.path);
+clouds.js:36:        };
+clouds.js:38:        img.onerror = () => {
+clouds.js:39:            console.warn(`File not found: ${set.path}. Baking at runtime...`);
+clouds.js:40:            const dataUrl = bakeTexture(set);
+clouds.js:41:            resolve(dataUrl);
+clouds.js:42:        };
+clouds.js:43:    });
+clouds.js:44:}
+clouds.js:46:function bakeTexture(set) {
+clouds.js:47:    const canvas = document.createElement('canvas');
+clouds.js:48:    canvas.width = set.mapW * set.blockSize;
+clouds.js:49:    canvas.height = set.mapH * set.blockSize;
+clouds.js:50:    const ctx = canvas.getContext('2d');
+clouds.js:52:    ctx.fillStyle = "#FFFFFF";
+clouds.js:53:    for (let x = 0; x < set.mapW; x++) {
+clouds.js:54:        for (let y = 0; y < set.mapH; y++) {
+clouds.js:55:            // fBm noise call
+clouds.js:56:            const val = Noise.fBm(x * set.scale, y * (set.scale * 0.85));
+clouds.js:57:            if (val > set.threshold) {
+clouds.js:58:                ctx.fillRect(x * set.blockSize, y * set.blockSize, set.blockSize, set.blockSize);
+clouds.js:59:            }
+clouds.js:60:        }
+clouds.js:61:    }
+clouds.js:62:    return canvas.toDataURL("image/png");
+clouds.js:63:}
+clouds.js:65:async function initSky() {
+clouds.js:66:    for (const set of layerSettings) {
+clouds.js:67:        const textureUrl = await loadOrBake(set);
+clouds.js:68:        const el = document.getElementById(set.id);
+clouds.js:69:        const texHeight = set.mapH * set.blockSize;
+clouds.js:71:        el.style.backgroundImage = `url(${textureUrl})`;
+clouds.js:72:        el.style.backgroundSize = `${set.mapW * set.blockSize}px ${texHeight}px`;
+clouds.js:73:        
+clouds.js:74:        cloudLayers.push({ el, speed: set.speed, h: texHeight });
+clouds.js:75:    }
+clouds.js:76:}
+clouds.js:78:// --- RENDERING (Transform only) ---
+clouds.js:79:function updateSky() {
+clouds.js:80:    const scroll = window.pageYOffset;
+clouds.js:81:    for (let i = 0; i < cloudLayers.length; i++) {
+clouds.js:82:        const layer = cloudLayers[i];
+clouds.js:83:        const moveY = -(scroll * layer.speed % layer.h);
+clouds.js:84:        layer.el.style.transform = `translate3d(0, ${moveY}px, 0)`;
+clouds.js:85:    }
+clouds.js:86:    ticking = false;
+clouds.js:87:}
+clouds.js:89:let ticking = false;
+clouds.js:90:window.addEventListener('scroll', () => {
+clouds.js:91:    if (!ticking) {
+clouds.js:92:        window.requestAnimationFrame(updateSky);
+clouds.js:93:        ticking = true;
+clouds.js:94:    }
+clouds.js:95:}, { passive: true });
+clouds.js:97:// --- NOISE ENGINE (Fallback) ---
+clouds.js:98:const Noise = new function() {
+clouds.js:99:    this.p = new Uint8Array(512);
+clouds.js:100:    const p256 = new Uint8Array(256).map(() => Math.random() * 256);
+clouds.js:101:    for(let i=0; i<256; i++) this.p[i] = this.p[i+256] = p256[i];
+clouds.js:102:    this.fade = t => t * t * t * (t * (t * 6 - 15) + 10);
+clouds.js:103:    this.lerp = (t, a, b) => a + t * (b - a);
+clouds.js:104:    this.grad = (hash, x, y) => {
+clouds.js:105:        const h = hash & 15, u = h < 8 ? x : y, v = h < 4 ? y : h === 12 || h === 14 ? x : 0;
+clouds.js:106:        return ((h & 1) === 0 ? u : -u) + ((h & 2) === 0 ? v : -v);
+clouds.js:107:    };
+clouds.js:108:    this.perlin = (x, y) => {
+clouds.js:109:        const X = Math.floor(x) & 255, Y = Math.floor(y) & 255;
+clouds.js:110:        x -= Math.floor(x); y -= Math.floor(y);
+clouds.js:111:        const u = this.fade(x), v = this.fade(y);
+clouds.js:112:        const A = this.p[X]+Y, AA = this.p[A], AB = this.p[A+1], B = this.p[X+1]+Y, BA = this.p[B], BB = this.p[B+1];
+clouds.js:113:        return this.lerp(v, this.lerp(u, this.grad(this.p[AA], x, y), this.grad(this.p[BA], x-1, y)),
+clouds.js:114:                            this.lerp(u, this.grad(this.p[AB], x, y-1), this.grad(this.p[BB], x-1, y-1)));
+clouds.js:115:    };
+clouds.js:116:    this.fBm = (x, y) => {
+clouds.js:117:        let total = 0, amp = 1, freq = 1, max = 0;
+clouds.js:118:        for(let i=0; i<4; i++) {
+clouds.js:119:            total += this.perlin(x * freq, y * freq) * amp;
+clouds.js:120:            max += amp; amp *= 0.5; freq *= 2;
+clouds.js:121:        }
+clouds.js:122:        return (total / max + 1) / 2;
+clouds.js:123:    };
+clouds.js:124:};
+clouds.js:126:initSky();
+index.html:1:<!DOCTYPE html>
+index.html:2:<html>
+index.html:4:	<head>
+index.html:5:		<title>Ginuel's Portfolio!</title>
+index.html:6:		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+index.html:7:		<link rel="stylesheet" href="clouds.css">
+index.html:8:		<link rel="stylesheet" href="overworld.css">
+index.html:9:		<link rel="stylesheet" href="sun.css">
+index.html:10:		<link rel="stylesheet" href="world.css">
+index.html:11:	</head>
+index.html:13:	<main>
+index.html:15:		<header>
+index.html:16:			<!-- Navigation -->
+index.html:17:			<nav>
+index.html:18:				
+index.html:19:			</nav>
+index.html:21:		</header>
+index.html:23:		<body>
+index.html:24:			<!-- Sun -->
+index.html:25:			<div id="celestial-sun" class="sun-layer">
+index.html:26:					<img src="images/sun.svg" alt="Sun">
+index.html:27:			</div>
+index.html:29:			<!-- Clouds -->
+index.html:30:			<div id="layer-back" class="sky-layer"></div>
+index.html:31:			<div id="layer-mid" class="sky-layer"></div>
+index.html:32:			<div id="layer-front" class="sky-layer"></div>
+index.html:34:			<!-- Overworld  -->
+index.html:35:			<div class="sky-viewport container-fluid p-0">
+index.html:36:				<img src="images/overworld.svg" class="mc-scene">
+index.html:37:			</div>
+index.html:38:			<div class="stone-filler container-fluid"></div>
+index.html:43:			<!-- Portfolio Hero -->
+index.html:44:			<!-- <section> -->
+index.html:45:			<!-- 	<h1>Hi, I'm <strong>Ginuel Maquellao!</strong></h1> -->
+index.html:46:			<!-- 	<p><em>Aspiring Web and App Developer</em></p> -->
+index.html:47:			<!-- 	<p>Passionate about building clean, responsive, and user-friendly websites, also apps, also computer games.</p> -->
+index.html:48:			<!-- 	<p>Based in Pangasinan, Philippines.</p> -->
+index.html:49:			<!-- 	<img src="" alt=""> -->
+index.html:50:			<!-- </section> -->
+index.html:52:			<!-- Carousel	of Featured Projects -->
+index.html:53:			<!-- <section> -->
+index.html:54:			<!-- 	<h2>Featured Projects</h2> -->
+index.html:55:			<!---->
+index.html:56:			<!-- 	<article> -->
+index.html:57:			<!-- 		<img src="images/project2.jpg" alt="The image shows a website's appearance of a portfolio that is themed dark and blue about Ginuel." style="width: 100%;"> -->
+index.html:58:			<!-- 		<p>Initial Output of My Project Portfolio</p> -->
+index.html:59:			<!-- 	</article> -->
+index.html:60:			<!---->
+index.html:61:			<!-- 	<article> -->
+index.html:62:			<!-- 		<img src="images/project1.jpg" alt="The image shows the code of the Portfolio in Termux which had Neovim syntax highlighting so it's very colorful." style="width: 100%;"> -->
+index.html:63:			<!-- 		<p>This was the code of that Portfolio before I changed it.</p> -->
+index.html:64:			<!-- 	</article> -->
+index.html:65:			<!-- </section> -->
+index.html:68:			<!-- About -->
+index.html:69:			<section>
+index.html:70:				
+index.html:71:			</section>
+index.html:73:			<!-- Skills -->
+index.html:74:			<section>
+index.html:75:				
+index.html:76:			</section>
+index.html:78:			<!-- Achievements -->
+index.html:79:			<section>
+index.html:80:				
+index.html:81:			</section>
+index.html:83:			<!-- Projects -->
+index.html:84:			<section>
+index.html:85:				
+index.html:87:			<script src="clouds.js"></script>
+index.html:88:			<script src="sun.js"></script>
+index.html:90:		</body>
+index.html:92:		<footer>
+index.html:93:			<!-- Contacts -->
+index.html:94:			<section>
+index.html:95:				
+index.html:96:			</section>
+index.html:98:			<!-- Footer -->
+index.html:99:			<section>
+index.html:100:				
+index.html:101:			</section>
+index.html:102:			
+index.html:103:		</footer>
+index.html:106:		
+index.html:107:	</main>
+index.html:109:</html>
+clouds.css:2:.sky-layer {
+clouds.css:3:    position: fixed;
+clouds.css:4:    top: 0;
+clouds.css:5:    left: 0;
+clouds.css:6:    width: 100vw;
+clouds.css:7:    height: 200vh; /* Loop buffer */
+clouds.css:8:    background-repeat: repeat;
+clouds.css:9:    background-position: center top;
+clouds.css:10:    image-rendering: pixelated; /* Keeps blocky edges sharp */
+clouds.css:11:    pointer-events: none;
+clouds.css:12:    z-index: -1;
+clouds.css:13:    /* Hint to browser to keep this on the GPU */
+clouds.css:14:    will-change: transform;
+clouds.css:15:    transform: translate3d(0, 0, 0);
+clouds.css:16:}
+clouds.css:18:#layer-back { opacity: 0.2; z-index: -3; }
+clouds.css:19:#layer-mid  { opacity: 0.4; z-index: -2; }
+clouds.css:20:#layer-front { opacity: 0.7; z-index: -1; }
+limit-scroll.js:1:(function() {
+limit-scroll.js:2:    const limitScroll = () => {
+limit-scroll.js:3:        // Calculate 2x the current viewport height
+limit-scroll.js:4:        const doubleHeight = window.innerHeight * 2;
+limit-scroll.js:5:        
+limit-scroll.js:6:        // Force the body and html to stop exactly there
+limit-scroll.js:7:        document.documentElement.style.height = `${doubleHeight}px`;
+limit-scroll.js:8:        document.body.style.height = `${doubleHeight}px`;
+limit-scroll.js:9:    };
+limit-scroll.js:11:    // Initialize the limit
+limit-scroll.js:12:    limitScroll();
+limit-scroll.js:14:    // Re-calculate if the user rotates their phone or resizes the browser
+limit-scroll.js:15:    window.addEventListener('resize', limitScroll);
+limit-scroll.js:16:})();
+overworld.css:1:.sky-viewport {
+overworld.css:2:  height: 100svh !important; /* Mobile UI fix */
+overworld.css:3:  display: flex;
+overworld.css:4:  flex-direction: column;
+overworld.css:5:  justify-content: flex-end;
+overworld.css:6:  padding-bottom: env(safe-area-inset-bottom, 0px);
+overworld.css:7:}
+overworld.css:9:.mc-scene {
+overworld.css:10:  /* Keeps the blocky stone and jitters sharp */
+overworld.css:11:  image-rendering: pixelated;
+overworld.css:12:  image-rendering: crisp-edges;
+overworld.css:13:  width: 100%;
+overworld.css:14:}
+overworld.css:16:.stone-filler {
+overworld.css:17:  background-color: #808080; /* Matches front stone layer */
+overworld.css:18:  min-height: 100vh;
+overworld.css:19:  margin-top: -1px; /* Seamless transition */
+overworld.css:20:}
+style.css:1:/* clouds.css */
+style.css:2:body {
+style.css:3:    background-color: #5392ff;
+style.css:4:    margin: 0;
+style.css:5:    /* Large height to ensure we can scroll a lot */
+style.css:6:    height: 10000px; 
+style.css:7:    overflow-x: hidden;
+style.css:8:}
+style.css:10:.sky-layer {
+style.css:11:    /* The layers are fixed and always fill exactly one screen */
+style.css:12:    position: fixed;
+style.css:13:    top: 0;
+style.css:14:    left: 0;
+style.css:15:    width: 100vw;
+style.css:16:    height: 100vh;
+style.css:17:    
+style.css:18:    /* This handles the "continuation" automatically */
+style.css:19:    background-repeat: repeat;
+style.css:20:    
+style.css:21:    image-rendering: pixelated;
+style.css:22:    pointer-events: none;
+style.css:23:    z-index: -1;
+style.css:24:    
+style.css:25:    /* Performance optimization */
+style.css:26:    will-change: background-position;
+style.css:27:}
+style.css:29:#layer-back { opacity: 0.3; z-index: -3; }
+style.css:30:#layer-mid  { opacity: 0.6; z-index: -2; }
+style.css:31:#layer-front { opacity: 1.0; z-index: -1; }
+images/sun.svg:1:<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+images/sun.svg:2:  <rect x="10" y="10" width="80" height="80" fill="#f1c40f" opacity="0.2" />
+images/sun.svg:3:  <rect x="20" y="20" width="60" height="60" fill="#ffdb58" />
+images/sun.svg:4:  <rect x="35" y="35" width="30" height="30" fill="#ffffff" opacity="0.5" />
+images/sun.svg:6:</svg>
+images/flower.svg:1:<svg width="20" height="40" viewBox="0 0 20 40" xmlns="http://www.w3.org/2000/svg">
+images/flower.svg:2:  <!-- Stem -->
+images/flower.svg:3:  <rect x="8" y="20" width="4" height="20" fill="#4a752c" />
+images/flower.svg:4:  <!-- Bloom -->
+images/flower.svg:5:  <rect x="0" y="0" width="20" height="20" fill="#ff0000" />
+images/flower.svg:6:  <rect x="6" y="6" width="8" height="8" fill="#3a0000" />
+images/flower.svg:7:</svg>
+images/sword.svg:1:<svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+images/sword.svg:2:  <!-- Handle/Hilt -->
+images/sword.svg:3:  <rect x="20" y="120" width="20" height="20" fill="#533b2b" />
+images/sword.svg:4:  <rect x="40" y="100" width="20" height="20" fill="#533b2b" />
+images/sword.svg:5:  <!-- Crossguard -->
+images/sword.svg:6:  <rect x="20" y="80" width="20" height="20" fill="#31d1d1" />
+images/sword.svg:7:  <rect x="40" y="80" width="20" height="20" fill="#31d1d1" />
+images/sword.svg:8:  <rect x="60" y="100" width="20" height="20" fill="#31d1d1" />
+images/sword.svg:9:  <rect x="60" y="120" width="20" height="20" fill="#31d1d1" />
+images/sword.svg:10:  <!-- Blade (Diagonal) -->
+images/sword.svg:11:  <rect x="60" y="60" width="20" height="20" fill="#31d1d1" />
+images/sword.svg:12:  <rect x="80" y="40" width="20" height="20" fill="#31d1d1" />
+images/sword.svg:13:  <rect x="100" y="20" width="20" height="20" fill="#31d1d1" />
+images/sword.svg:14:  <rect x="120" y="0" width="20" height="20" fill="#31d1d1" />
+images/sword.svg:15:  <!-- Shine Detail -->
+images/sword.svg:16:  <rect x="120" y="0" width="8" height="8" fill="#ffffff" opacity="0.5" />
+images/sword.svg:17:</svg>
+images/tree.svg:1:<svg width="400" height="600" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+images/tree.svg:2:  <!-- Trunk -->
+images/tree.svg:3:  <rect x="160" y="300" width="80" height="300" fill="#6d503c" />
+images/tree.svg:4:  <!-- Canopy Layers -->
+images/tree.svg:5:  <rect x="40" y="140" width="320" height="160" fill="#3a5e24" />
+images/tree.svg:6:  <rect x="100" y="60" width="200" height="80" fill="#4a752c" />
+images/tree.svg:7:  <rect x="170" y="0" width="60" height="60" fill="#5da037" />
+images/tree.svg:8:</svg>
+images/cloud-block.svg:1:<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+images/cloud-block.svg:2:  <!-- The Base Shadow -->
+images/cloud-block.svg:3:  <rect width="16" height="16" fill="#D1D1D1" />
+images/cloud-block.svg:4:  
+images/cloud-block.svg:5:  <!-- The Top/Front Highlight -->
+images/cloud-block.svg:6:  <rect width="16" height="12" fill="#FFFFFF" />
+images/cloud-block.svg:7:  
+images/cloud-block.svg:8:  <!-- Subtle Pixel Texture (Bottom right corner) -->
+images/cloud-block.svg:9:  <rect x="12" y="12" width="4" height="4" fill="#BDBDBD" />
+images/cloud-block.svg:10:</svg>
+images/overworld.svg:1:<svg viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice" shape-rendering="crispEdges">
+images/overworld.svg:2:  <defs>
+images/overworld.svg:3:    <!-- The Enchantment Glow -->
+images/overworld.svg:4:    <radialGradient id="bladeGlow" cx="50%" cy="50%" r="50%">
+images/overworld.svg:5:      <stop offset="0%" stop-color="#E0FFFF" />
+images/overworld.svg:6:      <stop offset="100%" stop-color="#33E3EC" />
+images/overworld.svg:7:    </radialGradient>
+images/overworld.svg:8:  </defs>
+images/overworld.svg:10:  <!-- 1. OAK TREE (With Jitters) -->
+images/overworld.svg:11:  <g transform="translate(-65, 0)">
+images/overworld.svg:12:    <rect x="130" y="160" width="30" height="120" fill="#6B5132" />
+images/overworld.svg:13:    <rect x="85" y="140" width="120" height="60" fill="#3D6B25" /> 
+images/overworld.svg:14:    <rect x="95" y="100" width="100" height="60" fill="#4B822C" /> 
+images/overworld.svg:15:    <rect x="120" y="70" width="50" height="40" fill="#5AA351" />
+images/overworld.svg:16:  </g>
+images/overworld.svg:18:  <!-- 2. THE BIG STONE (Back Layer) -->
+images/overworld.svg:19:  <rect x="230" y="230" width="90" height="50" fill="#696969" /> 
+images/overworld.svg:20:  <rect x="215" y="260" width="15" height="20" fill="#5A5A5A" />
+images/overworld.svg:22:  <!-- 3. THE DIAMOND SWORD (Glow Applied) -->
+images/overworld.svg:23:  <g transform="translate(275, 210) rotate(180)">
+images/overworld.svg:24:    <rect x="0" y="0" width="6" height="12" fill="#5C4033" /> 
+images/overworld.svg:25:    <rect x="-6" y="-4" width="18" height="6" fill="#724924" /> 
+images/overworld.svg:26:    <!-- The Blade now uses the bladeGlow gradient -->
+images/overworld.svg:27:    <rect x="0" y="-40" width="6" height="36" fill="url(#bladeGlow)" stroke="#33E3EC" stroke-width="1" /> 
+images/overworld.svg:28:  </g>
+images/overworld.svg:30:  <!-- 4. THE BIG STONE (Front Layer) -->
+images/overworld.svg:31:  <rect x="245" y="235" width="60" height="45" fill="#808080" /> 
+images/overworld.svg:32:  <rect x="290" y="220" width="25" height="15" fill="#808080" /> 
+images/overworld.svg:33:  <rect x="305" y="250" width="20" height="30" fill="#808080" />
+images/overworld.svg:35:  <!-- 5. MICRO-JITTER CRUST -->
+images/overworld.svg:36:  <rect x="0" y="280" width="400" height="20" fill="#5AA351" /> 
+images/overworld.svg:37:  <rect x="0" y="300" width="400" height="60" fill="#8B5A2B" /> 
+images/overworld.svg:38:  <!-- Soil Jitters -->
+images/overworld.svg:39:  <rect x="40" y="310" width="3" height="3" fill="#50351A" />
+images/overworld.svg:40:  <rect x="280" y="340" width="3" height="3" fill="#724924" />
+images/overworld.svg:43:	<!-- GRASS CRUST JITTERS -->
+images/overworld.svg:44:<g class="crust-jitters">
+images/overworld.svg:45:  <!-- Darker Grass patches (Depth) -->
+images/overworld.svg:46:  <rect x="30" y="280" width="10" height="4" fill="#3D6B25" />
+images/overworld.svg:47:  <rect x="120" y="280" width="15" height="2" fill="#3D6B25" />
+images/overworld.svg:48:  <rect x="250" y="280" width="8" height="5" fill="#3D6B25" />
+images/overworld.svg:49:  <rect x="360" y="280" width="12" height="3" fill="#3D6B25" />
+images/overworld.svg:50:  
+images/overworld.svg:51:  <!-- Lighter Grass patches (Highlights) -->
+images/overworld.svg:52:  <rect x="70" y="280" width="6" height="3" fill="#78C16D" />
+images/overworld.svg:53:  <rect x="190" y="280" width="10" height="2" fill="#78C16D" />
+images/overworld.svg:54:  <rect x="310" y="280" width="4" height="4" fill="#78C16D" />
+images/overworld.svg:55:</g>
+images/overworld.svg:57:<!-- DIRT CRUST JITTERS -->
+images/overworld.svg:58:<g class="soil-jitters">
+images/overworld.svg:59:  <!-- Deep Soil (Darker) -->
+images/overworld.svg:60:  <rect x="60" y="320" width="4" height="4" fill="#50351A" />
+images/overworld.svg:61:  <rect x="140" y="340" width="6" height="3" fill="#50351A" />
+images/overworld.svg:62:  <rect x="220" y="315" width="3" height="6" fill="#50351A" />
+images/overworld.svg:63:  <rect x="350" y="330" width="5" height="5" fill="#50351A" />
+images/overworld.svg:64:  
+images/overworld.svg:65:  <!-- Coarse Sand/Rocks (Lighter) -->
+images/overworld.svg:66:  <rect x="90" y="310" width="3" height="3" fill="#A07850" />
+images/overworld.svg:67:  <rect x="180" y="345" width="4" height="2" fill="#A07850" />
+images/overworld.svg:68:  <rect x="290" y="305" width="2" height="2" fill="#A07850" />
+images/overworld.svg:69:</g>
+images/overworld.svg:72:<!-- TREE DETAIL JITTERS -->
+images/overworld.svg:73:<g transform="translate(-65, 0)" class="tree-detail-jitters">
+images/overworld.svg:74:  <!-- Bark Knots and Texture -->
+images/overworld.svg:75:  <rect x="135" y="180" width="4" height="8" fill="#4D3A24" />
+images/overworld.svg:76:  <rect x="150" y="230" width="6" height="4" fill="#4D3A24" />
+images/overworld.svg:77:  <rect x="130" y="260" width="10" height="2" fill="#4D3A24" />
+images/overworld.svg:78:  
+images/overworld.svg:79:  <!-- Leaf Density Jitters -->
+images/overworld.svg:80:  <rect x="100" y="110" width="8" height="8" fill="#2E521C" />
+images/overworld.svg:81:  <rect x="160" y="150" width="12" height="6" fill="#2E521C" />
+images/overworld.svg:82:  <rect x="140" y="80" width="6" height="6" fill="#78C16D" />
+images/overworld.svg:83:</g>
+images/overworld.svg:86:<!-- STONE CRUST JITTERS -->
+images/overworld.svg:87:<g class="stone-surface-jitters">
+images/overworld.svg:88:  <!-- Front Stone Texture (#808080 layer) -->
+images/overworld.svg:89:  <rect x="255" y="245" width="4" height="4" fill="#696969" />
+images/overworld.svg:90:  <rect x="280" y="265" width="10" height="2" fill="#696969" />
+images/overworld.svg:91:  <rect x="295" y="230" width="3" height="3" fill="#A9A9A9" />
+images/overworld.svg:92:  
+images/overworld.svg:93:  <!-- Edge Jitters (Where stone meets grass) -->
+images/overworld.svg:94:  <rect x="230" y="278" width="12" height="4" fill="#5A5A5A" />
+images/overworld.svg:95:  <rect x="320" y="278" width="8" height="3" fill="#5A5A5A" />
+images/overworld.svg:96:</g>
+images/overworld.svg:98:<!-- POPPY -->
+images/overworld.svg:99:<g class="flower-poppy" transform="translate(45, 260)">
+images/overworld.svg:100:  <rect x="2" y="10" width="2" height="10" fill="#3D6B25" /> <!-- Stem -->
+images/overworld.svg:101:  <rect x="0" y="4" width="6" height="6" fill="#BE0000" />  <!-- Petals -->
+images/overworld.svg:102:  <rect x="2" y="2" width="2" height="2" fill="#BE0000" />  <!-- Top Bud -->
+images/overworld.svg:103:  <rect x="2" y="6" width="2" height="2" fill="#50351A" />  <!-- Center -->
+images/overworld.svg:104:</g>
+images/overworld.svg:107:<!-- DANDELION -->
+images/overworld.svg:108:<g class="flower-dandelion" transform="translate(180, 270)">
+images/overworld.svg:109:  <rect x="3" y="6" width="2" height="4" fill="#3D6B25" /> <!-- Stem -->
+images/overworld.svg:110:  <rect x="0" y="2" width="8" height="4" fill="#F1C40F" /> <!-- Flower Head -->
+images/overworld.svg:111:  <rect x="2" y="0" width="4" height="2" fill="#F1C40F" /> <!-- Top Trim -->
+images/overworld.svg:112:</g>
+images/overworld.svg:114:<!-- BLUE ORCHID -->
+images/overworld.svg:115:<g class="flower-orchid" transform="translate(320, 262)">
+images/overworld.svg:116:  <rect x="3" y="8" width="2" height="10" fill="#3D6B25" /> <!-- Stem -->
+images/overworld.svg:117:  <rect x="0" y="4" width="4" height="4" fill="#33E3EC" /> <!-- Left Bloom -->
+images/overworld.svg:118:  <rect x="4" y="0" width="4" height="4" fill="#E0FFFF" /> <!-- Right Bloom (Highlight) -->
+images/overworld.svg:119:</g>
+images/overworld.svg:123:</svg>
+images/stone.svg:1:<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+images/stone.svg:2:  <rect width="40" height="40" fill="#7b7b7b" />
+images/stone.svg:3:  <!-- Highlights/Texture -->
+images/stone.svg:4:  <rect x="4" y="4" width="8" height="4" fill="#8b8b8b" />
+images/stone.svg:5:  <rect x="24" y="12" width="12" height="4" fill="#6b6b6b" />
+images/stone.svg:6:  <rect x="8" y="28" width="16" height="4" fill="#8b8b8b" />
+images/stone.svg:7:</svg>
+images/grass.svg:1:<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+images/grass.svg:2:  <!-- Dirt Base -->
+images/grass.svg:3:  <rect x="0" y="20" width="80" height="60" fill="#866043" />
+images/grass.svg:4:  <!-- Grass Top -->
+images/grass.svg:5:  <rect x="0" y="0" width="80" height="30" fill="#5da037" />
+images/grass.svg:6:  <!-- Grass "Drips" (Pixelated edge) -->
+images/grass.svg:7:  <rect x="0" y="30" width="10" height="10" fill="#5da037" />
+images/grass.svg:8:  <rect x="20" y="30" width="20" height="10" fill="#5da037" />
+images/grass.svg:9:  <rect x="50" y="30" width="10" height="15" fill="#5da037" />
+images/grass.svg:10:  <rect x="70" y="30" width="10" height="10" fill="#5da037" />
+images/grass.svg:11:</svg>
+images/logo.svg:1:<?xml version="1.0" encoding="utf-8"?>
+images/logo.svg:2:<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version= "1.1" width="1000px" height="1000px" viewBox="-140 230 1000 1000">
+images/logo.svg:3:<g id="layer1">
+images/logo.svg:4:<g style="fill:rgb(37,217,240); fill-opacity:1.0; stroke-linejoin: miter">
+images/logo.svg:5:<path d="M399.40762,1089.7858L179.73802,1089.2759L4.412013,913.13043L4.9226475,693.46204L269.23965,386.53873L401.0413,386.8438L399.40762,1089.7858"/>
+images/logo.svg:6:</g>
+images/logo.svg:7:<g style="fill:rgb(37,217,240); fill-opacity:1.0; stroke-linejoin: miter">
+images/logo.svg:8:<path d="M333.50665,1089.6326L553.1763,1090.1438L729.31915,914.8153L729.82965,695.1469L466.94226,386.99826L335.14062,386.69064L333.50665,1089.6326"/>
+images/logo.svg:9:</g>
+images/logo.svg:10:</g>
+images/logo.svg:11:<g id="layer2">
+images/logo.svg:12:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+images/logo.svg:13:<path d="M-5.340576E-5,1087.9998L-2.670288E-4,1088.0009L-4.8065183E-4,1088.002L-5.340576E-5,1087.9998"/>
+images/logo.svg:14:</g>
+images/logo.svg:15:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+images/logo.svg:16:<path d="M720.0,1087.9999L720.00024,1088.001L720.0004,1088.0021L720.0,1087.9999"/>
+images/logo.svg:17:</g>
+images/logo.svg:18:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+images/logo.svg:19:<path d="M381.12225,1060.7275L379.59082,1065.55Q368.93497,1105.6158,354.06195,1098.3724Q346.51785,1095.9569,324.04974,1063.1971L307.5777,1048.2878L288.99042,1034.8185Q224.31938,998.4525,208.211,985.5553Q177.53098,964.0112,157.74696,935.7532Q143.6643,914.746,146.67159,892.97815Q147.28789,871.37085,186.65863,820.4425Q178.14487,781.8547,185.3554,758.21216Q195.93971,729.7312,240.48058,697.9521Q230.37378,669.04126,234.95963,652.72296Q234.9703,650.7478,240.33873,642.5906Q267.09338,615.96466,266.9508,612.74744Q268.2183,611.26917,269.86313,602.91724Q270.60812,601.1588,270.13855,579.11066Q270.98492,571.07605,271.88272,569.7257Q276.904,556.4872,295.82697,541.3862Q286.30762,513.2616,291.8269,501.38763Q295.51196,489.1232,323.4397,468.9712Q315.86334,448.88348,319.98782,438.62112Q323.99783,430.51794,338.08948,422.64447Q335.04053,404.92862,339.6371,400.80136Q342.29657,397.0538,348.83044,392.54688L354.21533,382.70404L357.5316,378.35623Q360.5398,375.40637,363.28662,379.9623Q364.84747,382.5931,366.30554,386.05466L415.9999,543.9998L381.12225,1060.7275"/>
+images/logo.svg:20:</g>
+images/logo.svg:21:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+images/logo.svg:22:<path d="M338.8778,1060.7275L340.40924,1065.55Q351.0651,1105.6158,365.9381,1098.3724Q373.4822,1095.9569,395.95032,1063.1971L412.42236,1048.2878L431.00964,1034.8185Q495.6807,998.4526,511.78906,985.55536Q542.4691,964.0113,562.2531,935.75323Q576.33575,914.74603,573.3285,892.9782Q572.71216,871.3709,533.34143,820.44257Q541.8552,781.85474,534.64465,758.2122Q524.06036,729.73126,479.51953,697.95215Q489.6263,669.0413,485.04047,652.723Q485.0298,650.74786,479.66138,642.59064Q452.9067,615.9647,453.0493,612.7475Q451.7818,611.2692,450.13696,602.9173Q449.39197,601.1589,449.86154,579.1107Q449.01517,571.0761,448.11737,569.72577Q443.0961,556.48724,424.17316,541.3863Q433.6925,513.26166,428.17322,501.38763Q424.48816,489.1232,396.56042,468.9712Q404.13678,448.88348,400.0123,438.62112Q396.0023,430.51794,381.91064,422.64447Q384.9596,404.92862,380.36304,400.80136Q377.70355,397.0538,371.16968,392.54688L365.7848,382.70404L362.46854,378.35623Q359.46033,375.40637,356.7135,379.9623Q355.15265,382.5931,353.69458,386.05466L304.00024,543.9998L338.8778,1060.7275"/>
+images/logo.svg:23:</g>
+images/logo.svg:24:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+images/logo.svg:25:<path d="M415.71286,310.93866L415.71295,310.93915L415.71304,310.93964L415.71286,310.93866"/>
+images/logo.svg:26:</g>
+images/logo.svg:27:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+images/logo.svg:28:<path d="M304.28714,310.93866L304.28705,310.93915L304.28696,310.93964L304.28714,310.93866"/>
+images/logo.svg:29:</g>
+images/logo.svg:30:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+images/logo.svg:31:<path d="M389.75687,556.75903L389.43262,559.1497Q389.49243,558.7749,389.5419,558.44824L389.58875,558.13385Q389.633,557.83167,389.66687,557.5782Q389.7007,557.3247,389.7242,557.11993Q389.74768,556.9151,389.76077,556.75903L389.75687,556.75903 M389.4072,559.30835L389.22,560.4427Q388.3949,565.33826,386.34814,575.9614Q385.66302,580.0979,385.32895,582.6514L371.9668,687.92004L389.4072,559.30835"/>
+images/logo.svg:32:</g>
+images/logo.svg:33:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+images/logo.svg:34:<path d="M338.72858,743.86536C338.95535,743.9559,339.1908,744.01733,339.4295,744.0496L339.4295,744.0496Q339.09604,744.01843,338.7252,743.86536 Z M396.90448,719.45953Q385.84882,719.45953,339.33243,738.117L339.32904,738.117Q338.74463,738.1639,338.11566,738.39105L338.11563,738.39105Q335.08444,739.4859,325.25845,748.29004C325.17038,748.36896,325.08728,748.4529,325.00925,748.54175Q314.0524,761.01874,307.077,774.2819L307.0739,774.2819Q304.22122,779.1056,299.9545,808.7698C299.9483,808.81287,299.94305,808.8562,299.93875,808.89954Q295.4228,854.47644,320.50928,888.431L320.50766,888.431Q336.47424,911.4573,346.00214,914.44635L345.9987,914.44635Q353.68658,918.5679,381.60193,918.84015C381.6118,918.8403,381.62164,918.8403,381.6315,918.8403C383.25497,918.8403,384.5789,917.5322,384.59476,915.90515C384.61072,914.2682,383.29666,912.9283,381.65973,912.9123Q354.67987,912.6491,348.64297,909.1342C348.42377,909.0066,348.189,908.9076,347.94458,908.8397Q340.41147,906.74805,325.32962,884.98157L325.27722,884.9083Q301.5826,852.8377,305.8252,809.6138L305.82224,809.6138Q309.99344,780.61346,312.14746,777.34564C312.2014,777.26385,312.25122,777.1794,312.29678,777.09265Q318.9095,764.50287,329.33496,752.60004L329.33167,752.60004Q337.6646,745.14,339.87323,744.0761L339.86984,744.0761C340.2302,744.0709,340.59036,744.0,340.93198,743.8628Q387.311,725.2316,396.00784,725.2316Q396.6131,725.2316,397.03583,725.3219L397.03186,725.3219C397.57706,725.7879,398.2644,726.0307,398.9584,726.0307C399.57538,726.0307,400.19763,725.8388,400.72995,725.44116C402.04144,724.4615,402.31042,722.6041,401.33072,721.29254Q400.4877,720.16406,398.96417,719.702L398.96414,719.70197Q398.16467,719.45953,396.90448,719.45953 Z"/>
+images/logo.svg:35:</g>
+images/logo.svg:36:<g>
+images/logo.svg:37:<g style="fill:rgb(0,188,212); fill-opacity:1.0; stroke-linejoin: miter">
+images/logo.svg:38:</g>
+images/logo.svg:39:</g>
+images/logo.svg:40:</g>
+images/logo.svg:41:<g id="layer3">
+images/logo.svg:42:<g>
+images/logo.svg:43:<g style="fill:rgb(0,226,255); fill-opacity:1.0; stroke-linejoin: miter">
+images/logo.svg:44:<path d="M402.03568,724.87805Q392.32483,723.35846,380.64282,723.8754Q221.68471,807.68195,304.61273,960.866L331.2176,983.4084Q347.21228,993.81537,362.37592,996.1882Q387.86176,1000.1762,411.0,981.4693Q455.13776,963.63324,460.10144,916.12933Q451.73566,861.45465,398.52277,853.12787Q375.36642,849.50433,343.7174,854.65765L339.55948,862.79144Q335.9879,874.3305,337.45325,883.2138Q340.561,883.51483,343.67297,881.3Q351.6595,885.01373,355.94104,891.53326Q359.49014,893.4633,359.9307,895.5363L366.1438,897.61884L382.4082,907.85895Q390.3888,915.1248,396.7484,918.09576Q375.2039,935.2199,351.4575,931.5041Q348.57666,931.0533,345.66345,930.2957L337.39865,915.9246Q306.89795,833.1342,376.55093,781.1497Q392.98663,788.0711,407.4641,790.3366Q414.74463,791.4759,421.52985,791.4377Q438.56836,781.2531,448.06177,768.9839Q440.55948,730.90625,402.03568,724.87805 Z"/>
+images/logo.svg:45:</g>
+images/logo.svg:46:</g>
+images/logo.svg:47:</g>
+images/logo.svg:48:</svg>
+sun.svg:1:<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+sun.svg:2:  <rect x="10" y="10" width="80" height="80" fill="#f1c40f" opacity="0.2" />
+sun.svg:3:  <rect x="20" y="20" width="60" height="60" fill="#ffdb58" />
+sun.svg:4:  <rect x="35" y="35" width="30" height="30" fill="#ffffff" opacity="0.5" />
+sun.svg:6:</svg>
+flower.svg:1:<svg width="20" height="40" viewBox="0 0 20 40" xmlns="http://www.w3.org/2000/svg">
+flower.svg:2:  <!-- Stem -->
+flower.svg:3:  <rect x="8" y="20" width="4" height="20" fill="#4a752c" />
+flower.svg:4:  <!-- Bloom -->
+flower.svg:5:  <rect x="0" y="0" width="20" height="20" fill="#ff0000" />
+flower.svg:6:  <rect x="6" y="6" width="8" height="8" fill="#3a0000" />
+flower.svg:7:</svg>
+cloud-block.svg:1:<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+cloud-block.svg:2:  <!-- The Base Shadow -->
+cloud-block.svg:3:  <rect width="16" height="16" fill="#D1D1D1" />
+cloud-block.svg:4:  
+cloud-block.svg:5:  <!-- The Top/Front Highlight -->
+cloud-block.svg:6:  <rect width="16" height="12" fill="#FFFFFF" />
+cloud-block.svg:7:  
+cloud-block.svg:8:  <!-- Subtle Pixel Texture (Bottom right corner) -->
+cloud-block.svg:9:  <rect x="12" y="12" width="4" height="4" fill="#BDBDBD" />
+cloud-block.svg:10:</svg>
+sword.svg:1:<svg width="160" height="160" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+sword.svg:2:  <!-- Handle/Hilt -->
+sword.svg:3:  <rect x="20" y="120" width="20" height="20" fill="#533b2b" />
+sword.svg:4:  <rect x="40" y="100" width="20" height="20" fill="#533b2b" />
+sword.svg:5:  <!-- Crossguard -->
+sword.svg:6:  <rect x="20" y="80" width="20" height="20" fill="#31d1d1" />
+sword.svg:7:  <rect x="40" y="80" width="20" height="20" fill="#31d1d1" />
+sword.svg:8:  <rect x="60" y="100" width="20" height="20" fill="#31d1d1" />
+sword.svg:9:  <rect x="60" y="120" width="20" height="20" fill="#31d1d1" />
+sword.svg:10:  <!-- Blade (Diagonal) -->
+sword.svg:11:  <rect x="60" y="60" width="20" height="20" fill="#31d1d1" />
+sword.svg:12:  <rect x="80" y="40" width="20" height="20" fill="#31d1d1" />
+sword.svg:13:  <rect x="100" y="20" width="20" height="20" fill="#31d1d1" />
+sword.svg:14:  <rect x="120" y="0" width="20" height="20" fill="#31d1d1" />
+sword.svg:15:  <!-- Shine Detail -->
+sword.svg:16:  <rect x="120" y="0" width="8" height="8" fill="#ffffff" opacity="0.5" />
+sword.svg:17:</svg>
+tree.svg:1:<svg width="400" height="600" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
+tree.svg:2:  <!-- Trunk -->
+tree.svg:3:  <rect x="160" y="300" width="80" height="300" fill="#6d503c" />
+tree.svg:4:  <!-- Canopy Layers -->
+tree.svg:5:  <rect x="40" y="140" width="320" height="160" fill="#3a5e24" />
+tree.svg:6:  <rect x="100" y="60" width="200" height="80" fill="#4a752c" />
+tree.svg:7:  <rect x="170" y="0" width="60" height="60" fill="#5da037" />
+tree.svg:8:</svg>
+overworld.svg:1:<svg viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice" shape-rendering="crispEdges">
+overworld.svg:2:  <defs>
+overworld.svg:3:    <!-- The Enchantment Glow -->
+overworld.svg:4:    <radialGradient id="bladeGlow" cx="50%" cy="50%" r="50%">
+overworld.svg:5:      <stop offset="0%" stop-color="#E0FFFF" />
+overworld.svg:6:      <stop offset="100%" stop-color="#33E3EC" />
+overworld.svg:7:    </radialGradient>
+overworld.svg:8:  </defs>
+overworld.svg:10:  <!-- 1. OAK TREE (With Jitters) -->
+overworld.svg:11:  <g transform="translate(-65, 0)">
+overworld.svg:12:    <rect x="130" y="160" width="30" height="120" fill="#6B5132" />
+overworld.svg:13:    <rect x="85" y="140" width="120" height="60" fill="#3D6B25" /> 
+overworld.svg:14:    <rect x="95" y="100" width="100" height="60" fill="#4B822C" /> 
+overworld.svg:15:    <rect x="120" y="70" width="50" height="40" fill="#5AA351" />
+overworld.svg:16:  </g>
+overworld.svg:18:  <!-- 2. THE BIG STONE (Back Layer) -->
+overworld.svg:19:  <rect x="230" y="230" width="90" height="50" fill="#696969" /> 
+overworld.svg:20:  <rect x="215" y="260" width="15" height="20" fill="#5A5A5A" />
+overworld.svg:22:  <!-- 3. THE DIAMOND SWORD (Glow Applied) -->
+overworld.svg:23:  <g transform="translate(275, 210) rotate(180)">
+overworld.svg:24:    <rect x="0" y="0" width="6" height="12" fill="#5C4033" /> 
+overworld.svg:25:    <rect x="-6" y="-4" width="18" height="6" fill="#724924" /> 
+overworld.svg:26:    <!-- The Blade now uses the bladeGlow gradient -->
+overworld.svg:27:    <rect x="0" y="-40" width="6" height="36" fill="url(#bladeGlow)" stroke="#33E3EC" stroke-width="1" /> 
+overworld.svg:28:  </g>
+overworld.svg:30:  <!-- 4. THE BIG STONE (Front Layer) -->
+overworld.svg:31:  <rect x="245" y="235" width="60" height="45" fill="#808080" /> 
+overworld.svg:32:  <rect x="290" y="220" width="25" height="15" fill="#808080" /> 
+overworld.svg:33:  <rect x="305" y="250" width="20" height="30" fill="#808080" />
+overworld.svg:35:  <!-- 5. MICRO-JITTER CRUST -->
+overworld.svg:36:  <rect x="0" y="280" width="400" height="20" fill="#5AA351" /> 
+overworld.svg:37:  <rect x="0" y="300" width="400" height="60" fill="#8B5A2B" /> 
+overworld.svg:38:  <!-- Soil Jitters -->
+overworld.svg:39:  <rect x="40" y="310" width="3" height="3" fill="#50351A" />
+overworld.svg:40:  <rect x="280" y="340" width="3" height="3" fill="#724924" />
+overworld.svg:43:	<!-- GRASS CRUST JITTERS -->
+overworld.svg:44:<g class="crust-jitters">
+overworld.svg:45:  <!-- Darker Grass patches (Depth) -->
+overworld.svg:46:  <rect x="30" y="280" width="10" height="4" fill="#3D6B25" />
+overworld.svg:47:  <rect x="120" y="280" width="15" height="2" fill="#3D6B25" />
+overworld.svg:48:  <rect x="250" y="280" width="8" height="5" fill="#3D6B25" />
+overworld.svg:49:  <rect x="360" y="280" width="12" height="3" fill="#3D6B25" />
+overworld.svg:50:  
+overworld.svg:51:  <!-- Lighter Grass patches (Highlights) -->
+overworld.svg:52:  <rect x="70" y="280" width="6" height="3" fill="#78C16D" />
+overworld.svg:53:  <rect x="190" y="280" width="10" height="2" fill="#78C16D" />
+overworld.svg:54:  <rect x="310" y="280" width="4" height="4" fill="#78C16D" />
+overworld.svg:55:</g>
+overworld.svg:57:<!-- DIRT CRUST JITTERS -->
+overworld.svg:58:<g class="soil-jitters">
+overworld.svg:59:  <!-- Deep Soil (Darker) -->
+overworld.svg:60:  <rect x="60" y="320" width="4" height="4" fill="#50351A" />
+overworld.svg:61:  <rect x="140" y="340" width="6" height="3" fill="#50351A" />
+overworld.svg:62:  <rect x="220" y="315" width="3" height="6" fill="#50351A" />
+overworld.svg:63:  <rect x="350" y="330" width="5" height="5" fill="#50351A" />
+overworld.svg:64:  
+overworld.svg:65:  <!-- Coarse Sand/Rocks (Lighter) -->
+overworld.svg:66:  <rect x="90" y="310" width="3" height="3" fill="#A07850" />
+overworld.svg:67:  <rect x="180" y="345" width="4" height="2" fill="#A07850" />
+overworld.svg:68:  <rect x="290" y="305" width="2" height="2" fill="#A07850" />
+overworld.svg:69:</g>
+overworld.svg:72:<!-- TREE DETAIL JITTERS -->
+overworld.svg:73:<g transform="translate(-65, 0)" class="tree-detail-jitters">
+overworld.svg:74:  <!-- Bark Knots and Texture -->
+overworld.svg:75:  <rect x="135" y="180" width="4" height="8" fill="#4D3A24" />
+overworld.svg:76:  <rect x="150" y="230" width="6" height="4" fill="#4D3A24" />
+overworld.svg:77:  <rect x="130" y="260" width="10" height="2" fill="#4D3A24" />
+overworld.svg:78:  
+overworld.svg:79:  <!-- Leaf Density Jitters -->
+overworld.svg:80:  <rect x="100" y="110" width="8" height="8" fill="#2E521C" />
+overworld.svg:81:  <rect x="160" y="150" width="12" height="6" fill="#2E521C" />
+overworld.svg:82:  <rect x="140" y="80" width="6" height="6" fill="#78C16D" />
+overworld.svg:83:</g>
+overworld.svg:86:<!-- STONE CRUST JITTERS -->
+overworld.svg:87:<g class="stone-surface-jitters">
+overworld.svg:88:  <!-- Front Stone Texture (#808080 layer) -->
+overworld.svg:89:  <rect x="255" y="245" width="4" height="4" fill="#696969" />
+overworld.svg:90:  <rect x="280" y="265" width="10" height="2" fill="#696969" />
+overworld.svg:91:  <rect x="295" y="230" width="3" height="3" fill="#A9A9A9" />
+overworld.svg:92:  
+overworld.svg:93:  <!-- Edge Jitters (Where stone meets grass) -->
+overworld.svg:94:  <rect x="230" y="278" width="12" height="4" fill="#5A5A5A" />
+overworld.svg:95:  <rect x="320" y="278" width="8" height="3" fill="#5A5A5A" />
+overworld.svg:96:</g>
+overworld.svg:98:<!-- POPPY -->
+overworld.svg:99:<g class="flower-poppy" transform="translate(45, 260)">
+overworld.svg:100:  <rect x="2" y="10" width="2" height="10" fill="#3D6B25" /> <!-- Stem -->
+overworld.svg:101:  <rect x="0" y="4" width="6" height="6" fill="#BE0000" />  <!-- Petals -->
+overworld.svg:102:  <rect x="2" y="2" width="2" height="2" fill="#BE0000" />  <!-- Top Bud -->
+overworld.svg:103:  <rect x="2" y="6" width="2" height="2" fill="#50351A" />  <!-- Center -->
+overworld.svg:104:</g>
+overworld.svg:107:<!-- DANDELION -->
+overworld.svg:108:<g class="flower-dandelion" transform="translate(180, 270)">
+overworld.svg:109:  <rect x="3" y="6" width="2" height="4" fill="#3D6B25" /> <!-- Stem -->
+overworld.svg:110:  <rect x="0" y="2" width="8" height="4" fill="#F1C40F" /> <!-- Flower Head -->
+overworld.svg:111:  <rect x="2" y="0" width="4" height="2" fill="#F1C40F" /> <!-- Top Trim -->
+overworld.svg:112:</g>
+overworld.svg:114:<!-- BLUE ORCHID -->
+overworld.svg:115:<g class="flower-orchid" transform="translate(320, 262)">
+overworld.svg:116:  <rect x="3" y="8" width="2" height="10" fill="#3D6B25" /> <!-- Stem -->
+overworld.svg:117:  <rect x="0" y="4" width="4" height="4" fill="#33E3EC" /> <!-- Left Bloom -->
+overworld.svg:118:  <rect x="4" y="0" width="4" height="4" fill="#E0FFFF" /> <!-- Right Bloom (Highlight) -->
+overworld.svg:119:</g>
+overworld.svg:123:</svg>
+stone.svg:1:<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+stone.svg:2:  <rect width="40" height="40" fill="#7b7b7b" />
+stone.svg:3:  <!-- Highlights/Texture -->
+stone.svg:4:  <rect x="4" y="4" width="8" height="4" fill="#8b8b8b" />
+stone.svg:5:  <rect x="24" y="12" width="12" height="4" fill="#6b6b6b" />
+stone.svg:6:  <rect x="8" y="28" width="16" height="4" fill="#8b8b8b" />
+stone.svg:7:</svg>
+logo.svg:1:<?xml version="1.0" encoding="utf-8"?>
+logo.svg:2:<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version= "1.1" width="1000px" height="1000px" viewBox="-140 230 1000 1000">
+logo.svg:3:<g id="layer1">
+logo.svg:4:<g style="fill:rgb(37,217,240); fill-opacity:1.0; stroke-linejoin: miter">
+logo.svg:5:<path d="M399.40762,1089.7858L179.73802,1089.2759L4.412013,913.13043L4.9226475,693.46204L269.23965,386.53873L401.0413,386.8438L399.40762,1089.7858"/>
+logo.svg:6:</g>
+logo.svg:7:<g style="fill:rgb(37,217,240); fill-opacity:1.0; stroke-linejoin: miter">
+logo.svg:8:<path d="M333.50665,1089.6326L553.1763,1090.1438L729.31915,914.8153L729.82965,695.1469L466.94226,386.99826L335.14062,386.69064L333.50665,1089.6326"/>
+logo.svg:9:</g>
+logo.svg:10:</g>
+logo.svg:11:<g id="layer2">
+logo.svg:12:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+logo.svg:13:<path d="M-5.340576E-5,1087.9998L-2.670288E-4,1088.0009L-4.8065183E-4,1088.002L-5.340576E-5,1087.9998"/>
+logo.svg:14:</g>
+logo.svg:15:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+logo.svg:16:<path d="M720.0,1087.9999L720.00024,1088.001L720.0004,1088.0021L720.0,1087.9999"/>
+logo.svg:17:</g>
+logo.svg:18:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+logo.svg:19:<path d="M381.12225,1060.7275L379.59082,1065.55Q368.93497,1105.6158,354.06195,1098.3724Q346.51785,1095.9569,324.04974,1063.1971L307.5777,1048.2878L288.99042,1034.8185Q224.31938,998.4525,208.211,985.5553Q177.53098,964.0112,157.74696,935.7532Q143.6643,914.746,146.67159,892.97815Q147.28789,871.37085,186.65863,820.4425Q178.14487,781.8547,185.3554,758.21216Q195.93971,729.7312,240.48058,697.9521Q230.37378,669.04126,234.95963,652.72296Q234.9703,650.7478,240.33873,642.5906Q267.09338,615.96466,266.9508,612.74744Q268.2183,611.26917,269.86313,602.91724Q270.60812,601.1588,270.13855,579.11066Q270.98492,571.07605,271.88272,569.7257Q276.904,556.4872,295.82697,541.3862Q286.30762,513.2616,291.8269,501.38763Q295.51196,489.1232,323.4397,468.9712Q315.86334,448.88348,319.98782,438.62112Q323.99783,430.51794,338.08948,422.64447Q335.04053,404.92862,339.6371,400.80136Q342.29657,397.0538,348.83044,392.54688L354.21533,382.70404L357.5316,378.35623Q360.5398,375.40637,363.28662,379.9623Q364.84747,382.5931,366.30554,386.05466L415.9999,543.9998L381.12225,1060.7275"/>
+logo.svg:20:</g>
+logo.svg:21:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+logo.svg:22:<path d="M338.8778,1060.7275L340.40924,1065.55Q351.0651,1105.6158,365.9381,1098.3724Q373.4822,1095.9569,395.95032,1063.1971L412.42236,1048.2878L431.00964,1034.8185Q495.6807,998.4526,511.78906,985.55536Q542.4691,964.0113,562.2531,935.75323Q576.33575,914.74603,573.3285,892.9782Q572.71216,871.3709,533.34143,820.44257Q541.8552,781.85474,534.64465,758.2122Q524.06036,729.73126,479.51953,697.95215Q489.6263,669.0413,485.04047,652.723Q485.0298,650.74786,479.66138,642.59064Q452.9067,615.9647,453.0493,612.7475Q451.7818,611.2692,450.13696,602.9173Q449.39197,601.1589,449.86154,579.1107Q449.01517,571.0761,448.11737,569.72577Q443.0961,556.48724,424.17316,541.3863Q433.6925,513.26166,428.17322,501.38763Q424.48816,489.1232,396.56042,468.9712Q404.13678,448.88348,400.0123,438.62112Q396.0023,430.51794,381.91064,422.64447Q384.9596,404.92862,380.36304,400.80136Q377.70355,397.0538,371.16968,392.54688L365.7848,382.70404L362.46854,378.35623Q359.46033,375.40637,356.7135,379.9623Q355.15265,382.5931,353.69458,386.05466L304.00024,543.9998L338.8778,1060.7275"/>
+logo.svg:23:</g>
+logo.svg:24:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+logo.svg:25:<path d="M415.71286,310.93866L415.71295,310.93915L415.71304,310.93964L415.71286,310.93866"/>
+logo.svg:26:</g>
+logo.svg:27:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+logo.svg:28:<path d="M304.28714,310.93866L304.28705,310.93915L304.28696,310.93964L304.28714,310.93866"/>
+logo.svg:29:</g>
+logo.svg:30:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+logo.svg:31:<path d="M389.75687,556.75903L389.43262,559.1497Q389.49243,558.7749,389.5419,558.44824L389.58875,558.13385Q389.633,557.83167,389.66687,557.5782Q389.7007,557.3247,389.7242,557.11993Q389.74768,556.9151,389.76077,556.75903L389.75687,556.75903 M389.4072,559.30835L389.22,560.4427Q388.3949,565.33826,386.34814,575.9614Q385.66302,580.0979,385.32895,582.6514L371.9668,687.92004L389.4072,559.30835"/>
+logo.svg:32:</g>
+logo.svg:33:<g style="fill:rgb(255,255,255); fill-opacity:1.0; stroke-linejoin: miter">
+logo.svg:34:<path d="M338.72858,743.86536C338.95535,743.9559,339.1908,744.01733,339.4295,744.0496L339.4295,744.0496Q339.09604,744.01843,338.7252,743.86536 Z M396.90448,719.45953Q385.84882,719.45953,339.33243,738.117L339.32904,738.117Q338.74463,738.1639,338.11566,738.39105L338.11563,738.39105Q335.08444,739.4859,325.25845,748.29004C325.17038,748.36896,325.08728,748.4529,325.00925,748.54175Q314.0524,761.01874,307.077,774.2819L307.0739,774.2819Q304.22122,779.1056,299.9545,808.7698C299.9483,808.81287,299.94305,808.8562,299.93875,808.89954Q295.4228,854.47644,320.50928,888.431L320.50766,888.431Q336.47424,911.4573,346.00214,914.44635L345.9987,914.44635Q353.68658,918.5679,381.60193,918.84015C381.6118,918.8403,381.62164,918.8403,381.6315,918.8403C383.25497,918.8403,384.5789,917.5322,384.59476,915.90515C384.61072,914.2682,383.29666,912.9283,381.65973,912.9123Q354.67987,912.6491,348.64297,909.1342C348.42377,909.0066,348.189,908.9076,347.94458,908.8397Q340.41147,906.74805,325.32962,884.98157L325.27722,884.9083Q301.5826,852.8377,305.8252,809.6138L305.82224,809.6138Q309.99344,780.61346,312.14746,777.34564C312.2014,777.26385,312.25122,777.1794,312.29678,777.09265Q318.9095,764.50287,329.33496,752.60004L329.33167,752.60004Q337.6646,745.14,339.87323,744.0761L339.86984,744.0761C340.2302,744.0709,340.59036,744.0,340.93198,743.8628Q387.311,725.2316,396.00784,725.2316Q396.6131,725.2316,397.03583,725.3219L397.03186,725.3219C397.57706,725.7879,398.2644,726.0307,398.9584,726.0307C399.57538,726.0307,400.19763,725.8388,400.72995,725.44116C402.04144,724.4615,402.31042,722.6041,401.33072,721.29254Q400.4877,720.16406,398.96417,719.702L398.96414,719.70197Q398.16467,719.45953,396.90448,719.45953 Z"/>
+logo.svg:35:</g>
+logo.svg:36:<g>
+logo.svg:37:<g style="fill:rgb(0,188,212); fill-opacity:1.0; stroke-linejoin: miter">
+logo.svg:38:</g>
+logo.svg:39:</g>
+logo.svg:40:</g>
+logo.svg:41:<g id="layer3">
+logo.svg:42:<g>
+logo.svg:43:<g style="fill:rgb(0,226,255); fill-opacity:1.0; stroke-linejoin: miter">
+logo.svg:44:<path d="M402.03568,724.87805Q392.32483,723.35846,380.64282,723.8754Q221.68471,807.68195,304.61273,960.866L331.2176,983.4084Q347.21228,993.81537,362.37592,996.1882Q387.86176,1000.1762,411.0,981.4693Q455.13776,963.63324,460.10144,916.12933Q451.73566,861.45465,398.52277,853.12787Q375.36642,849.50433,343.7174,854.65765L339.55948,862.79144Q335.9879,874.3305,337.45325,883.2138Q340.561,883.51483,343.67297,881.3Q351.6595,885.01373,355.94104,891.53326Q359.49014,893.4633,359.9307,895.5363L366.1438,897.61884L382.4082,907.85895Q390.3888,915.1248,396.7484,918.09576Q375.2039,935.2199,351.4575,931.5041Q348.57666,931.0533,345.66345,930.2957L337.39865,915.9246Q306.89795,833.1342,376.55093,781.1497Q392.98663,788.0711,407.4641,790.3366Q414.74463,791.4759,421.52985,791.4377Q438.56836,781.2531,448.06177,768.9839Q440.55948,730.90625,402.03568,724.87805 Z"/>
+logo.svg:45:</g>
+logo.svg:46:</g>
+logo.svg:47:</g>
+logo.svg:48:</svg>
+grass.svg:1:<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+grass.svg:2:  <!-- Dirt Base -->
+grass.svg:3:  <rect x="0" y="20" width="80" height="60" fill="#866043" />
+grass.svg:4:  <!-- Grass Top -->
+grass.svg:5:  <rect x="0" y="0" width="80" height="30" fill="#5da037" />
+grass.svg:6:  <!-- Grass "Drips" (Pixelated edge) -->
+grass.svg:7:  <rect x="0" y="30" width="10" height="10" fill="#5da037" />
+grass.svg:8:  <rect x="20" y="30" width="20" height="10" fill="#5da037" />
+grass.svg:9:  <rect x="50" y="30" width="10" height="15" fill="#5da037" />
+grass.svg:10:  <rect x="70" y="30" width="10" height="10" fill="#5da037" />
+grass.svg:11:</svg>
