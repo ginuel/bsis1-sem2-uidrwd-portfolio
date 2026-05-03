@@ -32,14 +32,30 @@
 			<div id="layer-mid" class="sky-layer"></div>
 			<div id="layer-front" class="sky-layer"></div>
 
-			<!-- Overworld  -->
-			<div class="sky-viewport container-fluid p-0">
-				<img src="images/overworld.svg" class="mc-scene">
-			</div>
-			<div class="stone-filler container-fluid"></div>
-
-
-
+			
+		<div class="sky-viewport">
+			<div id="main-ender-wrapper" class="ender-wrapper" onclick="changeBiome(event, this)">
+				<img id="glitch-target" class="mc-scene"
+					src="images/overworld.svg" 
+					data-images="
+						images/overworld.svg,
+						images/overworld-badlands.svg,
+						images/overworld-classic-flat.svg,
+						images/overworld-desert.svg,
+						images/overworld-jungle.svg,
+						images/overworld-meadow.svg,
+						images/overworld-mushroom.svg,
+						images/overworld-ocean.svg,
+						images/overworld-redstone-ready.svg,
+						images/overworld-savanna.svg,
+						images/overworld-snowy.svg,
+						images/overworld-stony.svg,
+						images/overworld-swamp.svg
+					">
+				<canvas id="noise-canvas"></canvas>
+	    </div>
+    </div>
+		<div class="stone-filler"></div>
 
 			<!-- Portfolio Hero -->
 			<!-- <section> -->

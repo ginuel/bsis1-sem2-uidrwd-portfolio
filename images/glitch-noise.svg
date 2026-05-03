@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <filter id="ender-confusion" x="0" y="0" width="100%" height="100%" filterUnits="objectBoundingBox" primitiveUnits="objectBoundingBox">
+    <!-- Smooth Perlin Texture -->
+    <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" result="noise" />
+    
+    <!-- Warp the image by 5% of its own size -->
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.05" xChannelSelector="R" result="warped" />
+
+    <!-- Mask: Strictly limit effect to visible pixels only -->
+    <feComposite in="warped" in2="SourceAlpha" operator="in" />
+  </filter>
+</svg>
+

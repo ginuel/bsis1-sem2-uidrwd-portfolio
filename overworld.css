@@ -4,17 +4,41 @@
   flex-direction: column;
   justify-content: flex-end;
   padding-bottom: env(safe-area-inset-bottom, 0px);
+	/* pointer-events: none; */
 }
 
 .mc-scene {
   /* Keeps the blocky stone and jitters sharp */
   image-rendering: pixelated;
   image-rendering: crisp-edges;
-  width: 100%;
+  width: 100vw;
+	height: auto;
+	display: block;
+	/* Apply the mask using a CSS variable we will update via JS */
+	-webkit-mask-image: var(--biome-mask);
+	mask-image: var(--biome-mask);
+	
+	-webkit-mask-size: 100% 100%;
+	mask-size: 100% 100%;
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+
+	/* This allows clicks to pass through transparent pixels to the background */
+	pointer-events: none;
 }
 
+
 .stone-filler {
-  background-color: #808080; /* Matches front stone layer */
-  min-height: 100vh;
-  margin-top: -1px; /* Seamless transition */
+		/* background-color: #808080; /* Matches front stone layer */
+    width: 100vw;
+    min-height: 100vh;
+		margin-top: -1px; /* Seamless transition */
+    z-index: 0; /* Ensures it stays behind all content */
+    background-image: url('images/stone-noise.svg');
+    background-size: 20% auto; 
+    background-repeat: repeat;
+    image-rendering: pixelated;
+    pointer-events: none;
 }
+
+

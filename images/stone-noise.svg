@@ -1,0 +1,23 @@
+<!-- images/stone-noise.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <!-- Base Stone Color -->
+  <rect width="16" height="16" fill="#707070" />
+  
+  <!-- "Decorations" (Repeating pixels) -->
+  <g fill="#616161">
+    <rect x="1" y="1" width="1" height="1" />
+    <rect x="10" y="2" width="1" height="1" />
+    <rect x="12" y="8" width="1" height="1" />
+    <rect x="8" y="13" width="1" height="1" />
+  </g>
+  
+  <g fill="#828282">
+    <rect x="2" y="2" width="1" height="1" />
+    <rect x="11" y="11" width="1" height="1" />
+    <rect x="14" y="4" width="1" height="1" />
+  </g>
+  
+  <!-- Shadow/Grid -->
+  <!-- <path d="M16 0H0V16" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1"/> -->
+</svg>
+
