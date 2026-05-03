@@ -1,0 +1,128 @@
+<svg viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice" shape-rendering="crispEdges">
+  <defs>
+    <!-- The Enchantment Glow -->
+    <radialGradient id="bladeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#E0FFFF" />
+      <stop offset="100%" stop-color="#33E3EC" />
+    </radialGradient>
+  </defs>
+
+  <!-- 1. SPRUCE TREE (Snowy Taiga Template) -->
+  <g transform="translate(-65, 0)">
+    <!-- Trunk -->
+    <rect x="130" y="160" width="30" height="120" fill="#2E1D0B" />
+    <!-- Bottom Needles (Darkest) -->
+    <rect x="85" y="160" width="120" height="40" fill="#1B3322" /> 
+    <!-- Middle Needles -->
+    <rect x="100" y="110" width="90" height="50" fill="#24442E" /> 
+    <!-- Top Needles -->
+    <rect x="120" y="60" width="50" height="50" fill="#2D5439" />
+    <!-- SNOW ON TREE -->
+    <rect x="85" y="160" width="120" height="8" fill="#FFFFFF" opacity="0.8" />
+    <rect x="100" y="110" width="90" height="8" fill="#FFFFFF" opacity="0.8" />
+    <rect x="120" y="60" width="50" height="8" fill="#FFFFFF" opacity="0.8" />
+  </g>
+
+  <!-- 2. THE BIG STONE (Back Layer - Frosted) -->
+  <rect x="230" y="230" width="90" height="50" fill="#696969" /> 
+  <rect x="215" y="260" width="15" height="20" fill="#5A5A5A" />
+
+  <!-- 3. THE DIAMOND SWORD (Glow Applied) -->
+  <g transform="translate(275, 210) rotate(180)">
+    <rect x="0" y="0" width="6" height="12" fill="#5C4033" /> 
+    <rect x="-6" y="-4" width="18" height="6" fill="#724924" /> 
+    <rect x="0" y="-40" width="6" height="36" fill="url(#bladeGlow)" stroke="#33E3EC" stroke-width="1" /> 
+  </g>
+
+  <!-- 4. THE BIG STONE (Front Layer - Snow Topped) -->
+  <rect x="245" y="235" width="60" height="45" fill="#808080" /> 
+  <rect x="290" y="220" width="25" height="15" fill="#808080" /> 
+  <rect x="305" y="250" width="20" height="30" fill="#808080" />
+  <!-- Snow Cap on Stone -->
+  <rect x="245" y="235" width="60" height="6" fill="#FFFFFF" />
+  <rect x="290" y="220" width="25" height="6" fill="#FFFFFF" />
+
+  <!-- 5. SNOW CRUST (Replaces Grass/Dirt) -->
+  <rect x="0" y="280" width="400" height="20" fill="#FFFFFF" /> 
+  <rect x="0" y="300" width="400" height="60" fill="#8B5A2B" /> 
+  
+  <!-- Soil Jitters -->
+  <rect x="40" y="310" width="3" height="3" fill="#50351A" />
+  <rect x="280" y="340" width="3" height="3" fill="#724924" />
+
+  <!-- SNOW SURFACE JITTERS -->
+  <g class="crust-jitters">
+    <!-- Blueish Ice/Shadow patches -->
+    <rect x="30" y="280" width="10" height="4" fill="#EBFBFF" />
+    <rect x="120" y="280" width="15" height="2" fill="#EBFBFF" />
+    <rect x="250" y="280" width="8" height="5" fill="#EBFBFF" />
+    <rect x="360" y="280" width="12" height="3" fill="#EBFBFF" />
+    
+    <!-- Deep Snow Highlights -->
+    <rect x="70" y="280" width="6" height="3" fill="#F0F0F0" />
+    <rect x="190" y="280" width="10" height="2" fill="#F0F0F0" />
+    <rect x="310" y="280" width="4" height="4" fill="#F0F0F0" />
+  </g>
+
+  <!-- DIRT CRUST JITTERS -->
+  <g class="soil-jitters">
+    <rect x="60" y="320" width="4" height="4" fill="#50351A" />
+    <rect x="140" y="340" width="6" height="3" fill="#50351A" />
+    <rect x="220" y="315" width="3" height="6" fill="#50351A" />
+    <rect x="350" y="330" width="5" height="5" fill="#50351A" />
+    
+    <rect x="90" y="310" width="3" height="3" fill="#A07850" />
+    <rect x="180" y="345" width="4" height="2" fill="#A07850" />
+    <rect x="290" y="305" width="2" height="2" fill="#A07850" />
+  </g>
+
+
+<!-- TREE DETAIL JITTERS -->
+<g transform="translate(-65, 0)" class="tree-detail-jitters">
+  <!-- Bark Texture -->
+  <rect x="135" y="180" width="4" height="8" fill="#1A1108" />
+  <rect x="150" y="230" width="6" height="4" fill="#1A1108" />
+  
+  <!-- Needle Jitters -->
+  <rect x="100" y="110" width="8" height="8" fill="#0D1A11" />
+  <rect x="160" y="150" width="12" height="6" fill="#0D1A11" />
+  <rect x="140" y="80" width="6" height="6" fill="#FFFFFF" opacity="0.5" />
+</g>
+
+
+<!-- STONE CRUST JITTERS -->
+<g class="stone-surface-jitters">
+  <rect x="255" y="245" width="4" height="4" fill="#696969" />
+  <rect x="280" y="265" width="10" height="2" fill="#696969" />
+  <rect x="295" y="230" width="3" height="3" fill="#A9A9A9" />
+  
+  <!-- Snow drifting onto stone base -->
+  <rect x="230" y="278" width="12" height="4" fill="#FFFFFF" />
+  <rect x="320" y="278" width="8" height="3" fill="#FFFFFF" />
+</g>
+
+<!-- SWEET BERRY BUSH (Replaces Poppy) -->
+<g class="sweet-berry-bush" transform="translate(45, 265)">
+  <rect x="2" y="5" width="2" height="10" fill="#1B3322" /> <!-- Stem -->
+  <rect x="0" y="2" width="6" height="6" fill="#24442E" /> <!-- Leaves -->
+  <rect x="1" y="3" width="2" height="2" fill="#BE0000" /> <!-- Berry -->
+  <rect x="4" y="5" width="2" height="2" fill="#BE0000" /> <!-- Berry -->
+</g>
+
+
+<!-- FERN (Replaces Dandelion) -->
+<g class="fern" transform="translate(180, 270)">
+  <rect x="3" y="2" width="2" height="8" fill="#24442E" /> 
+  <rect x="0" y="4" width="8" height="2" fill="#24442E" />
+  <rect x="1" y="1" width="6" height="2" fill="#24442E" />
+</g>
+
+<!-- FROSTED TALL GRASS (Replaces Blue Orchid) -->
+<g class="frosted-grass" transform="translate(320, 265)">
+  <rect x="3" y="0" width="2" height="15" fill="#24442E" /> 
+  <rect x="3" y="0" width="2" height="4" fill="#FFFFFF" /> <!-- Snow tip -->
+  <rect x="1" y="8" width="6" height="2" fill="#24442E" />
+</g>
+
+</svg>
+
