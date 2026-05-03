@@ -11,7 +11,7 @@ main () (
 
 declare_strings () {
 	REPO_NAME="bsis1-sem2-uidrwd-portfolio"
-	BRANCH_NAME="main"
+	BRANCH_NAME="master"
 	GH_EMAIL="xpsl4b@gmail.com"
 	GH_NAME="ginuel"
 	DEFAULT_GIT_COMMAND_NAME="push"
