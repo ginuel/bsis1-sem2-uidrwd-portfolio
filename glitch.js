@@ -50,26 +50,26 @@ function drawEnderLayers(canvas, img, progress) {
     ctx.clearRect(0, 0, w, h);
     ctx.save(); 
     
-    // Draw the base biome image
     ctx.drawImage(img, 0, 0, w, h);
-
-    // Mask everything to the shape of the biome
     ctx.globalCompositeOperation = 'source-atop';
 
+    // The "Inverse Progress" factor (starts at 1.0, ends at 0.0)
+    const shrinkFactor = 1 - progress;
+
     const layers = [
-        { y: 0.1, th: 0.25, color: 'rgba(25, 10, 40, 0.8)' },   // Deep Void
-        { y: 0.3, th: 0.15, color: 'rgba(100, 32, 167, 0.5)' },  // Ender Purple
-        { y: 0.6, th: 0.10, color: 'rgba(212, 0, 255, 0.6)' },  // Endermite Highlight
+        { y: 0.1, th: 0.5, color: 'rgba(25, 10, 40, 0.8)' },   // Deep Void
+        { y: 0.3, th: 0.4, color: 'rgba(100, 32, 167, 0.5)' },  // Ender Purple
+        { y: 0.6, th: 0.2, color: 'rgba(212, 0, 255, 0.6)' },  // Endermite Highlight
         { y: 0.8, th: 0.05, color: 'rgba(255, 200, 255, 0.3)' }  // Bright Spark
     ];
 
     layers.forEach(layer => {
         const currentY = ((layer.y + progress) % 1) * h;
-        const thickness = layer.th * h;
         
-        const grad = ctx.createLinearGradient(0, currentY, 0, currentY + thickness);
-        grad.addColorStop(0, 'rgba(0, 0, 0, 0)');
-        grad.addColorStop(0.5, layer.color);
+        // FADE OUT: Make the color more transparent as it shrinks
+        const colorWithAlpha = layer.color.replace(/[\d.]+\)$/g, `${0.5 * shrinkFactor})`);
+        grad.addColorStop(0.5, colorWithAlpha);
+        
         grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
 
         ctx.fillStyle = grad;

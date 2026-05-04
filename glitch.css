@@ -4,6 +4,8 @@
     cursor: pointer;
     line-height: 0;
 		pointer-events: auto;
+		overflow: hidden;
+		contain: paint;
 }
 
 #glitch-target {
@@ -23,9 +25,14 @@
     opacity: 0;
 }
 
+#glitch-target, #noise-canvas {
+	object-fit: contain;
+}
+
 .glitching #glitch-target {
     /* Combined filter prevents overwriting */
     filter: url('images/glitch-noise.svg#ender-confusion') brightness(1.2) drop-shadow(2px 0px #ff00ff) drop-shadow(-2px 0px #00ffff);
+    /* filter: brightness(1.2) drop-shadow(2px 0px #ff00ff) drop-shadow(-2px 0px #00ffff); */
     transform: scale(1.02);
 }
 

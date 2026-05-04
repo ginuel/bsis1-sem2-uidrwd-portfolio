@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    height: 100vh;
+    background-color: #222;
+}
+
+.pillar {
+    width: 64px; /* Adjust width as needed */
+    height: 100%;
+    background-image: url('stone_brick.svg');
+    background-size: 64px 64px; /* Scales the 16px texture up */
+    background-repeat: repeat-y;
+    /* Crucial for keeping pixels sharp */
+    image-rendering: pixelated; 
+    image-rendering: crisp-edges;
+}
+
+.content {
+    flex-grow: 1;
+    color: white;
+    text-align: center;
+    padding-top: 50px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
