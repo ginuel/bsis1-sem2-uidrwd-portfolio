@@ -1,9 +1,0 @@
-<svg width="400" height="600" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
-  <!-- Trunk -->
-  <rect x="160" y="300" width="80" height="300" fill="#6d503c" />
-  <!-- Canopy Layers -->
-  <rect x="40" y="140" width="320" height="160" fill="#3a5e24" />
-  <rect x="100" y="60" width="200" height="80" fill="#4a752c" />
-  <rect x="170" y="0" width="60" height="60" fill="#5da037" />
-</svg>
-
