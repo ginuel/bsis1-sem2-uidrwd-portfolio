@@ -1,0 +1,25 @@
+<svg width="64" height="64" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+  <!-- Base Pillar Body -->
+  <rect width="16" height="16" fill="#1a2328" />
+  
+  <!-- Vertical Structural Edges -->
+  <rect x="0" width="2" height="16" fill="#0d1416" />
+  <rect x="14" width="2" height="16" fill="#0d1416" />
+  
+  <!-- Beveled Accents -->
+  <rect x="2" y="0" width="1" height="16" fill="#2a373d" />
+  <rect x="13" y="0" width="1" height="16" fill="#090e10" />
+  
+  <!-- Horizontal "Ribs" (Bone/Soul connection) -->
+  <rect x="2" y="4" width="12" height="2" fill="#062c33" />
+  <rect x="2" y="12" width="12" height="2" fill="#062c33" />
+  
+  <!-- Glowing Core segments -->
+  <rect x="7" y="4" width="2" height="2" fill="#11fbff" />
+  <rect x="7" y="12" width="2" height="2" fill="#11fbff" />
+  
+  <!-- Grain Texture -->
+  <rect x="4" y="7" width="1" height="3" fill="#131b1f" />
+  <rect x="11" y="2" width="1" height="4" fill="#131b1f" />
+</svg>
+

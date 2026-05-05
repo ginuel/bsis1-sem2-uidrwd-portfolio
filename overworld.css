@@ -1,3 +1,7 @@
+:root {
+ --filler-bg: url('images/stone.svg');
+}
+
 .sky-viewport {
   height: calc(100svh - var(--text-offset)) !important; /* Mobile UI fix */
   display: flex;
@@ -7,6 +11,8 @@
 	/* pointer-events: none; */
 	z-index: 2;
 }
+
+
 
 .mc-scene {
   /* Keeps the blocky stone and jitters sharp */
@@ -32,11 +38,12 @@
 
 .stone-filler {
 		/* background-color: #808080; /* Matches front stone layer */
+		position: relative;
     width: 100vw;
-    min-height: 100vh;
+    min-height: 100svh;
 		margin-top: -1px; /* Seamless transition */
     z-index: 0; /* Ensures it stays behind all content */
-    background-image: url('images/stone.svg');
+    background-image: var(--filler-bg);
     background-size: 20% auto; 
     background-repeat: repeat;
     image-rendering: pixelated;
@@ -45,3 +52,16 @@
 }
 
 
+@media (orientation: landscape) {
+  .sky-viewport {
+    /* Adjusting to svw as requested */
+		height: calc(100swh - var(--text-offset)) !important;
+  }
+	.mc-scene {
+	}
+}
+
+.dimension-container {
+	display: flex;
+	flex-direction: column;
+}

@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<title>Ginuel's Portfolio!</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="clouds.css">
 		<link rel="stylesheet" href="overworld.css">
@@ -16,6 +17,7 @@
 		<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 	</head>
+
 	<body>
 		<nav id="nav" class="sticky-nav-wrapper">
 			<div class="nav-filler-rail-left" id="navBarFillerLeft">
@@ -72,84 +74,152 @@
 			<div id="layer-mid" class="sky-layer"></div>
 			<div id="layer-front" class="sky-layer"></div>
 
-			<div>
-				<section id="home" class="stamp-head" style="position: absolute; z-index: 100;">
-					<h1>I'm Ginuel!</h1>
-					<p>I like coding and making games and apps and anything.</p>
-				</section>
-				<div class="sky-viewport">
-					<div id="main-ender-wrapper" class="ender-wrapper" onclick="changeBiome(event, this)">
-						<img id="glitch-target" class="mc-scene"
-							src="images/overworld.svg" 
-							data-images="
-								images/overworld.svg,
-								images/overworld-badlands.svg,
-								images/overworld-classic-flat.svg,
-								images/overworld-desert.svg,
-								images/overworld-jungle.svg,
-								images/overworld-meadow.svg,
-								images/overworld-mushroom.svg,
-								images/overworld-ocean.svg,
-								images/overworld-redstone-ready.svg,
-								images/overworld-savanna.svg,
-								images/overworld-snowy.svg,
-								images/overworld-stony.svg,
-								images/overworld-swamp.svg
-						">
-						<canvas id="noise-canvas"></canvas>
+			<section id="home" style="width:100%;	">
+				<div>
+					<div id="home" class="stamp-head" style="position:absolute; margin: auto;">
+						<div class="stamp-content">
+							<h1>I'm Ginuel!</h1>
+							<p>I like coding and making games and apps and anything.</p>
+						</div>
+					</div>
+					<div class="sky-viewport">
+						<div id="main-ender-wrapper" class="ender-wrapper" onclick="changeBiome(event, this)">
+							<img id="glitch-target" class="mc-scene"
+								src="images/overworld.svg" 
+								data-images="
+									images/overworld.svg,
+									images/overworld-badlands.svg,
+									images/overworld-classic-flat.svg,
+									images/overworld-desert.svg,
+									images/overworld-jungle.svg,
+									images/overworld-meadow.svg,
+									images/overworld-mushroom.svg,
+									images/overworld-ocean.svg,
+									images/overworld-redstone-ready.svg,
+									images/overworld-savanna.svg,
+									images/overworld-snowy.svg,
+									images/overworld-stony.svg,
+									images/overworld-swamp.svg
+							">
+							<canvas id="noise-canvas"></canvas>
+						</div>
 					</div>
 				</div>
+			</section>
+			<div class="dimension-container">
+				<section id="about" style="width:100%;">
+					<div class="stone-filler pillar-container">
+						<div class="pillar left"></div>
+
+						<div class="content">
+							<div class="stamp-head">
+								<img class="stamp-content-image" src="images/profile.jpg">
+							</div>
+							<div class="stamp-head">
+								<div class="stamp-content">
+									<h2>About</h2>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="pillar right"></div>
+
+					</div>
+				</section>
+
+				<section id="skills" style="width:100%;">
+					<div class="stone-filler pillar-container" style="--filler-bg: url('images/back-mineshaft.svg'); --pillar-bg: url('images/pillar-mineshaft.svg');">
+						<div class="pillar left"></div>
+
+						<div class="content">
+							<div class="stamp-head">
+								<div class="stamp-content">
+									<h2>Skills</h2>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="pillar right"></div>
+					</div>
+				</section>
+				<section id="achievements" style="width:100%;">
+					<div class="stone-filler pillar-container" style="--filler-bg: url('images/back-deep-dark.svg'); --pillar-bg: url('images/pillar-deep-dark.svg');">
+						<div class="pillar left"></div>
+
+						<div class="content">
+							<div class="stamp-head">
+								<div class="stamp-content">
+									<h2>Achievements</h2>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+								</div>
+							</div>
+						</div>
+						<div class="pillar right"></div>
+					</div>
+				</section>
+				<section id="projects" style="width:100%;">
+					<div class="stone-filler pillar-container" style="--filler-bg: url('images/back-bedrock.svg'); --pillar-bg: url('images/pillar-bedrock.svg');">
+						<div class="pillar left"></div>
+
+						<div class="content">
+							<div class="stamp-head">
+								<div class="stamp-content">
+									<h2>Projects</h2>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+								</div>
+							</div>
+						</div>
+						<div class="pillar right"></div>
+					</div>
+				</section>
+				<section id="contacts" style="width:100%;">
+					<div class="stone-filler pillar-container" style="--filler-bg: url('images/back-nether.svg'); --pillar-bg: url('images/pillar-nether.svg');">
+						<div class="pillar left"></div>
+
+						<div class="content">
+							<div class="stamp-head">
+								<div class="stamp-content">
+									<h2>Contacts</h2>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+									<p>I like coding and making games and apps and anything.</p>
+								</div>
+							</div>
+						</div>
+						<div class="pillar right"></div>
+					</div>
+				</section>
+				<section id="footer" style="width:100%;">
+					<div class="stone-filler pillar-container" style="--filler-bg: url('images/back-end.svg'); --pillar-bg: url('images/pillar-end.svg');">
+						<div class="pillar left"></div>
+
+						<div class="content">
+							
+						</div>
+						<div class="pillar right"></div>
+					</div>
+				</section>
 			</div>
-			<div class="stone-filler pillar-container">
-				<div class="pillar left"></div>
-
-				<div class="content">
-					<section id="about" class="stamp-head">
-						<h2>About</h2>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-					</section>
-					<section id="skills" class="stamp-head">
-						<h2>Skills</h2>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-					</section>
-					<section id="achievements" class="stamp-head">
-						<h2>Achievements</h2>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-					</section>
-					<section id="projects" class="stamp-head">
-						<h2>Projects</h2>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-					</section>
-					<section id="contacts" class="stamp-head">
-						<h2>Contacts</h2>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-						<p>I like coding and making games and apps and anything.</p>
-					</section>
-				</div>
-
-				<div class="pillar right"></div>
-			</div>
-
-
 		</main>
 
 		<footer>
-			<section id="footer" class="stone-filler">
-			</section>
+			<!-- <section id="footer" class="stone-filler"> -->
+			<!-- </section> -->
 		</footer>
 
 		<script src="sun.js"></script>

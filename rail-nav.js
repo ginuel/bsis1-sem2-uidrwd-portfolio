@@ -29,7 +29,7 @@ function move(targetEl, sectionId, mustScroll = true) {
 
 			if (targetSection) {
 				window.scrollTo({
-					top: absoluteTop - nav.offsetHeight * 3,
+					top: absoluteTop - nav.offsetHeight,
 					behavior: 'smooth'
 				});
 			}

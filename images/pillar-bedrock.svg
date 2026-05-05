@@ -1,0 +1,22 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Base Obsidian Purple-Black -->
+  <rect width="64" height="64" fill="#0f0514"/>
+  
+  <!-- Vertical Pillar Beams -->
+  <rect x="0" y="0" width="16" height="64" fill="#160821"/>
+  <rect x="48" y="0" width="16" height="64" fill="#160821"/>
+  
+  <!-- Glowing Void Particles (The "Crying" effect) -->
+  <rect x="4" y="12" width="4" height="12" fill="#7d26cd" opacity="0.6"/>
+  <rect x="56" y="32" width="4" height="8" fill="#a020f0" opacity="0.8"/>
+  <rect x="8" y="48" width="4" height="4" fill="#7d26cd" opacity="0.5"/>
+  
+  <!-- Horizontal Chiseled Edges -->
+  <rect x="0" y="0" width="64" height="4" fill="#1f132e"/>
+  <rect x="0" y="60" width="64" height="4" fill="#050208"/>
+  
+  <!-- Texture Noise -->
+  <rect x="20" y="20" width="8" height="8" fill="#1a1a1a" opacity="0.3"/>
+  <rect x="36" y="40" width="8" height="8" fill="#1a1a1a" opacity="0.3"/>
+</svg>
+

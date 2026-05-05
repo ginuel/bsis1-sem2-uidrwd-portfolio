@@ -1,0 +1,23 @@
+<svg width="64" height="64" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+  <!-- Dark Nether Brick Base -->
+  <rect width="16" height="16" fill="#2d161d" />
+  
+  <!-- Horizontal Brick Layers -->
+  <rect x="0" y="1" width="15" height="6" fill="#3d1f28" />
+  <rect x="0" y="9" width="15" height="6" fill="#3d1f28" />
+  
+  <!-- Highlights (Top edge of bricks) -->
+  <rect x="0" y="1" width="15" height="1" fill="#522a36" />
+  <rect x="0" y="9" width="15" height="1" fill="#522a36" />
+  
+  <!-- Mortar/Indents -->
+  <rect x="7" y="1" width="1" height="6" fill="#1a0b0f" />
+  <rect x="15" y="1" width="1" height="15" fill="#1a0b0f" />
+  <rect x="0" y="0" width="16" height="1" fill="#1a0b0f" />
+  <rect x="0" y="8" width="16" height="1" fill="#1a0b0f" />
+  
+  <!-- Weathering -->
+  <rect x="2" y="3" width="1" height="1" fill="#2d161d" />
+  <rect x="11" y="11" width="2" height="1" fill="#2d161d" />
+</svg>
+
