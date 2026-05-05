@@ -1,0 +1,16 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- XP Orb Shape -->
+  <path d="M8 4H16V6H18V8H20V16H18V18H16V20H8V18H6V16H4V8H6V6H8V4Z" fill="#3D7E1F"/>
+  
+  <!-- Inner Glow (Lime) -->
+  <path d="M10 6H14V8H16V10H18V14H16V16H14V18H10V16H8V14H6V10H8V8H10V6Z" fill="#BDFF3F"/>
+  
+  <!-- Center Highlight (Bright White/Yellow) -->
+  <path d="M11 9H13V11H15V13H13V15H11V13H9V11H11V9Z" fill="#F0FFAD"/>
+  
+  <!-- Pixel Accents (Darker Spots) -->
+  <rect x="7" y="9" width="2" height="2" fill="#5BA12B"/>
+  <rect x="15" y="13" width="2" height="2" fill="#5BA12B"/>
+  <rect x="11" y="16" width="2" height="2" fill="#5BA12B"/>
+</svg>
+

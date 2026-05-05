@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Perfect Fit Sticky Nav</title>
+	<link rel="stylesheet" href="rail-nav.css">
+	<!-- Place this inside your <head> -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+	<nav id="nav" class="sticky-nav-wrapper">
+		<div class="nav-filler-rail-left" id="navBarFillerLeft">
+			<!-- <a class="nav-link" href="#home"> -->
+				<div class="nav-logo-point" onclick="move(null, '#home')">
+					<img class="nav-logo" src="logo.svg" alt="Logo Icon">
+				</div>
+			<!-- </a> -->
+			<span class="stamp-head nav-logo-label">Ginuel</span>
+			<span style="width: 100%"></span>
+		</div>
+		<!-- Adjust --total-points to match the number of nav-points below -->
+		<div class="nav-container" id="navBar" style="--total-points: 7;">
+			<div class="indicator" id="indicator"></div>
+			<!-- <a class="nav-link" href="home"> -->
+				<div id="point-icon-0" class="nav-point active" onclick="move(this, '#home')">
+					<img class="point-icon" src="home-icon.svg" alt="Home Icon">
+					<span class="stamp-head nav-label">Home</span>
+				</div>
+			<!-- </a> -->
+			<!-- <a class="nav-link" href="#about"> -->
+				<div id="point-icon-1" class="nav-point" onclick="move(this, '#about')">
+					<img class="point-icon" src="about-icon.svg" alt="About Icon">
+					<span class="stamp-head nav-label">About</span>
+				</div>
+			<!-- </a> -->
+			<!-- <a class="nav-link" href="#skills"> -->
+				<div id="point-icon-2" class="nav-point" onclick="move(this, '#skills')">
+					<img class="point-icon" src="skills-icon.svg" alt="Skills Icon">
+					<span class="stamp-head nav-label">Skills</span>
+				</div>
+			<!-- </a> -->
+			<!-- <a class="nav-link" href="#achievements"> -->
+				<div id="point-icon-3" class="nav-point" onclick="move(this, '#achievements')">
+					<img class="point-icon" src="achievements-icon.svg" alt="Achievements Icon">
+					<span class="stamp-head nav-label">Achievements</span>
+				</div>
+			<!-- </a> -->
+			<!-- <a class="nav-link" href="#projects"> -->
+				<div id="point-icon-4" class="nav-point" onclick="move(this, '#projects')">
+					<img class="point-icon" src="projects-icon.svg" alt="Projects Icon">
+					<span class="stamp-head nav-label">Projects</span>
+				</div>
+			<!-- </a> -->
+			<!-- <a class="nav-link" href="#contacts"> -->
+				<div id="point-icon-5" class="nav-point" onclick="move(this, '#contacts')">
+					<img class="point-icon" src="contacts-icon.svg" alt="Contacts Icon">
+					<span class="stamp-head nav-label">Contacts</span>
+				</div>
+			<!-- </a> -->
+			<!-- <a class="nav-link" href="#footer"> -->
+				<div id="point-icon-6" class="nav-point">
+					<!-- <img class="point-icon" src="contacts-icon.svg" alt="Contacts Icon"> -->
+					<!-- <span class="stamp-head nav-label" style="margin-right: 10vw;">Footer</span> -->
+				</div>
+			<!-- </a> -->
+		</div>
+		<div class="nav-filler-rail-right" id="navBarFillerRight">
+	</nav>
+
+
+	<header>
+		
+	</header>
+
+	<main>
+
+		<section id="home" class="stamp-head">
+			<h1>I'm Ginuel!</h1>
+			<p>I like coding and making games and apps and anything.</p>
+		</section>
+		<section id="about" class="stamp-head">
+			<h2>About</h2>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+		</section>
+		<section id="skills" class="stamp-head">
+			<h2>Skills</h2>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+		</section>
+		<section id="achievements" class="stamp-head">
+			<h2>Achievements</h2>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+		</section>
+		<section id="projects" class="stamp-head">
+			<h2>Projects</h2>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+		</section>
+		<section id="contacts" class="stamp-head">
+			<h2>Contacts</h2>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+			<p>I like coding and making games and apps and anything.</p>
+		</section>
+	</main>
+	<footer>
+		<section id="footer" style="height: 100svh;">
+		</section>
+	</footer>
+
+	<script src="rail-nav.js"></script>
+</body>
+</html>
+

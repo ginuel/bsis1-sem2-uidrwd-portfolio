@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<title>Ginuel's Portfolio!</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -10,19 +9,59 @@
 		<link rel="stylesheet" href="sun.css">
 		<link rel="stylesheet" href="world.css">
 		<link rel="stylesheet" href="glitch.css">
+		<link rel="stylesheet" href="rail-nav.css">
+		<!-- Place this inside your <head> -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 	</head>
-
-	<main>
+	<body>
+		<nav id="nav" class="sticky-nav-wrapper">
+			<div class="nav-filler-rail-left" id="navBarFillerLeft">
+					<div class="nav-logo-point" onclick="move(null, '#home')">
+						<img class="nav-logo" src="images/logo.svg" alt="Logo Icon">
+					</div>
+				<span class="stamp-head nav-logo-label">Ginuel</span>
+				<span style="width: 100%"></span>
+			</div>
+			<div class="nav-container" id="navBar" style="--total-points: 7;">
+				<div class="indicator" id="indicator"></div>
+					<div id="point-icon-0" class="nav-point active" onclick="move(this, '#home')">
+						<img class="point-icon" src="images/home-icon.svg" alt="Home Icon">
+						<span class="stamp-head nav-label">Home</span>
+					</div>
+					<div id="point-icon-1" class="nav-point" onclick="move(this, '#about')">
+						<img class="point-icon" src="images/about-icon.svg" alt="About Icon">
+						<span class="stamp-head nav-label">About</span>
+					</div>
+					<div id="point-icon-2" class="nav-point" onclick="move(this, '#skills')">
+						<img class="point-icon" src="images/skills-icon.svg" alt="Skills Icon">
+						<span class="stamp-head nav-label">Skills</span>
+					</div>
+					<div id="point-icon-3" class="nav-point" onclick="move(this, '#achievements')">
+						<img class="point-icon" src="images/achievements-icon.svg" alt="Achievements Icon">
+						<span class="stamp-head nav-label">Achievements</span>
+					</div>
+					<div id="point-icon-4" class="nav-point" onclick="move(this, '#projects')">
+						<img class="point-icon" src="images/projects-icon.svg" alt="Projects Icon">
+						<span class="stamp-head nav-label">Projects</span>
+					</div>
+					<div id="point-icon-5" class="nav-point" onclick="move(this, '#contacts')">
+						<img class="point-icon" src="images/contacts-icon.svg" alt="Contacts Icon">
+						<span class="stamp-head nav-label">Contacts</span>
+					</div>
+					<div id="point-icon-6" class="nav-point"></div>
+				</div>
+			<div class="nav-filler-rail-right" id="navBarFillerRight">
+		</nav>
+		<main>
+			<!-- Navigation -->
 
 		<header>
-			<!-- Navigation -->
-			<nav>
-				
-			</nav>
 
 		</header>
-
-		<body>
+		<main>
 			<!-- Sun -->
 			<div id="celestial-sun" class="sun-layer">
 					<img src="images/sun.svg" alt="Sun">
@@ -33,106 +72,90 @@
 			<div id="layer-mid" class="sky-layer"></div>
 			<div id="layer-front" class="sky-layer"></div>
 
-			
-		<div class="sky-viewport">
-			<div id="main-ender-wrapper" class="ender-wrapper" onclick="changeBiome(event, this)">
-				<img id="glitch-target" class="mc-scene"
-					src="images/overworld.svg" 
-					data-images="
-						images/overworld.svg,
-						images/overworld-badlands.svg,
-						images/overworld-classic-flat.svg,
-						images/overworld-desert.svg,
-						images/overworld-jungle.svg,
-						images/overworld-meadow.svg,
-						images/overworld-mushroom.svg,
-						images/overworld-ocean.svg,
-						images/overworld-redstone-ready.svg,
-						images/overworld-savanna.svg,
-						images/overworld-snowy.svg,
-						images/overworld-stony.svg,
-						images/overworld-swamp.svg
-					">
-				<canvas id="noise-canvas"></canvas>
-	    </div>
-    </div>
-		<div class="stone-filler pillar-container">
-			<div class="pillar left"></div>
+			<div>
+				<section id="home" class="stamp-head" style="position: absolute; z-index: 100;">
+					<h1>I'm Ginuel!</h1>
+					<p>I like coding and making games and apps and anything.</p>
+				</section>
+				<div class="sky-viewport">
+					<div id="main-ender-wrapper" class="ender-wrapper" onclick="changeBiome(event, this)">
+						<img id="glitch-target" class="mc-scene"
+							src="images/overworld.svg" 
+							data-images="
+								images/overworld.svg,
+								images/overworld-badlands.svg,
+								images/overworld-classic-flat.svg,
+								images/overworld-desert.svg,
+								images/overworld-jungle.svg,
+								images/overworld-meadow.svg,
+								images/overworld-mushroom.svg,
+								images/overworld-ocean.svg,
+								images/overworld-redstone-ready.svg,
+								images/overworld-savanna.svg,
+								images/overworld-snowy.svg,
+								images/overworld-stony.svg,
+								images/overworld-swamp.svg
+						">
+						<canvas id="noise-canvas"></canvas>
+					</div>
+				</div>
+			</div>
+			<div class="stone-filler pillar-container">
+				<div class="pillar left"></div>
 
-			<div class="content">
-					<!-- <h1>Minecraft Style Layout</h1> -->
-					<!-- <p>The pillars on the left and right are repeating-y stone bricks.</p> -->
+				<div class="content">
+					<section id="about" class="stamp-head">
+						<h2>About</h2>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+					</section>
+					<section id="skills" class="stamp-head">
+						<h2>Skills</h2>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+					</section>
+					<section id="achievements" class="stamp-head">
+						<h2>Achievements</h2>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+					</section>
+					<section id="projects" class="stamp-head">
+						<h2>Projects</h2>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+					</section>
+					<section id="contacts" class="stamp-head">
+						<h2>Contacts</h2>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+						<p>I like coding and making games and apps and anything.</p>
+					</section>
+				</div>
+
+				<div class="pillar right"></div>
 			</div>
 
-			<div class="pillar right"></div>
-		</div>
 
-			<!-- Portfolio Hero -->
-			<!-- <section> -->
-			<!-- 	<h1>Hi, I'm <strong>Ginuel Maquellao!</strong></h1> -->
-			<!-- 	<p><em>Aspiring Web and App Developer</em></p> -->
-			<!-- 	<p>Passionate about building clean, responsive, and user-friendly websites, also apps, also computer games.</p> -->
-			<!-- 	<p>Based in Pangasinan, Philippines.</p> -->
-			<!-- 	<img src="" alt=""> -->
-			<!-- </section> -->
-
-			<!-- Carousel	of Featured Projects -->
-			<!-- <section> -->
-			<!-- 	<h2>Featured Projects</h2> -->
-			<!---->
-			<!-- 	<article> -->
-			<!-- 		<img src="images/project2.jpg" alt="The image shows a website's appearance of a portfolio that is themed dark and blue about Ginuel." style="width: 100%;"> -->
-			<!-- 		<p>Initial Output of My Project Portfolio</p> -->
-			<!-- 	</article> -->
-			<!---->
-			<!-- 	<article> -->
-			<!-- 		<img src="images/project1.jpg" alt="The image shows the code of the Portfolio in Termux which had Neovim syntax highlighting so it's very colorful." style="width: 100%;"> -->
-			<!-- 		<p>This was the code of that Portfolio before I changed it.</p> -->
-			<!-- 	</article> -->
-			<!-- </section> -->
-
-
-			<!-- About -->
-			<section>
-				
-			</section>
-
-			<!-- Skills -->
-			<section>
-				
-			</section>
-
-			<!-- Achievements -->
-			<section>
-				
-			</section>
-
-			<!-- Projects -->
-			<section>
-				
-
-			<script src="clouds.js"></script>
-			<script src="sun.js"></script>
-			<script src="glitch.js"></script>
-			<script src="biomes.js"></script>
-
-		</body>
+		</main>
 
 		<footer>
-			<!-- Contacts -->
-			<section>
-				
+			<section id="footer" class="stone-filler">
 			</section>
-
-			<!-- Footer -->
-			<section>
-				
-			</section>
-			
 		</footer>
 
-
-		
-	</main>
-
+		<script src="sun.js"></script>
+		<script src="clouds.js"></script>
+		<script src="glitch.js"></script>
+		<script src="biomes.js"></script>
+		<script src="rail-nav.js"></script>
+	</body>
 </html>

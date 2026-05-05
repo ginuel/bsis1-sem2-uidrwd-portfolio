@@ -1,5 +1,5 @@
 .sky-viewport {
-  height: 100svh !important; /* Mobile UI fix */
+  height: calc(100svh - var(--text-offset)) !important; /* Mobile UI fix */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -41,6 +41,7 @@
     background-repeat: repeat;
     image-rendering: pixelated;
     pointer-events: none;
+		margin: 0;
 }
 
 

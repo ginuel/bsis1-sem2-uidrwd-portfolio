@@ -1,0 +1,31 @@
+<svg width="64" height="64" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+  <!-- Book Cover/Body -->
+  <rect x="3" y="2" width="9" height="12" fill="#5C3D2E" /> <!-- Dark brown leather -->
+  <rect x="4" y="3" width="7" height="10" fill="#7A533E" /> <!-- Lighter leather detail -->
+  
+  <!-- Pages (Edge) -->
+  <rect x="11" y="3" width="1" height="10" fill="#E2E2E2" />
+  
+  <!-- Book Binding/Clasp -->
+  <rect x="3" y="5" width="2" height="1" fill="#3E2723" />
+  <rect x="3" y="10" width="2" height="1" fill="#3E2723" />
+  
+  <!-- Quill (Feather) -->
+  <rect x="10" y="4" width="1" height="1" fill="#FFFFFF" />
+  <rect x="11" y="3" width="1" height="1" fill="#FFFFFF" />
+  <rect x="12" y="2" width="2" height="1" fill="#FFFFFF" />
+  <rect x="13" y="1" width="2" height="1" fill="#FFFFFF" />
+  
+  <!-- Quill (Ink/Shadow on feather) -->
+  <rect x="11" y="4" width="1" height="1" fill="#D1D1D1" />
+  <rect x="12" y="3" width="1" height="1" fill="#D1D1D1" />
+  
+  <!-- Quill (Nib/Shaft) -->
+  <rect x="9" y="5" width="1" height="1" fill="#373737" /> <!-- Tip -->
+  <rect x="10" y="5" width="1" height="1" fill="#7A533E" /> <!-- Wooden shaft -->
+  
+  <!-- Accent/Highlight on Cover -->
+  <rect x="5" y="5" width="3" height="1" fill="#F4D03F" opacity="0.6" /> <!-- "Gold" inscription look -->
+  <rect x="5" y="7" width="2" height="1" fill="#F4D03F" opacity="0.6" />
+</svg>
+

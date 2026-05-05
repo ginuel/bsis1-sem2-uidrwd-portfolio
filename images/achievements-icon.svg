@@ -1,0 +1,25 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Trophy Cup Body -->
+  <rect x="16" y="12" width="32" height="24" fill="#FFD700"/> <!-- Main Gold -->
+  <rect x="16" y="12" width="4" height="24" fill="#F0C419"/>  <!-- Left Shadow -->
+  <rect x="44" y="12" width="4" height="24" fill="#E6B800"/>  <!-- Right Shadow -->
+  <rect x="20" y="12" width="4" height="4" fill="#FFFFFF" fill-opacity="0.5"/> <!-- Shine -->
+
+  <!-- Handles -->
+  <path d="M12 16H16V28H12V16Z" fill="#E6B800"/>
+  <path d="M8 16H12V24H8V16Z" fill="#F0C419"/>
+  <path d="M48 16H52V28H48V16Z" fill="#D4A017"/>
+  <path d="M52 16H56V24H52V16Z" fill="#D4A017"/>
+
+  <!-- Stem -->
+  <rect x="28" y="36" width="8" height="8" fill="#E6B800"/>
+  <rect x="28" y="36" width="4" height="8" fill="#D4A017"/>
+
+  <!-- Base -->
+  <rect x="20" y="44" width="24" height="8" fill="#B8860B"/>
+  <rect x="20" y="44" width="4" height="8" fill="#8B6508"/>
+  
+  <!-- Blocky Outline/Shadow -->
+  <path d="M16 12H48V36H40V44H44V52H20V44H24V36H16V12Z" stroke="#373737" stroke-width="2" stroke-linejoin="round"/>
+</svg>
+

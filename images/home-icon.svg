@@ -1,0 +1,24 @@
+<svg width="64" height="64" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+  <!-- Door Frame/Base (Dark Oak) -->
+  <rect x="3" y="1" width="10" height="14" fill="#312215" />
+  
+  <!-- Main Door Surface (Oak/Spruce mix) -->
+  <rect x="4" y="2" width="8" height="12" fill="#79553a" />
+  
+  <!-- Inset Panels (Top) -->
+  <rect x="5" y="3" width="2" height="3" fill="#5d4037" />
+  <rect x="9" y="3" width="2" height="3" fill="#5d4037" />
+  
+  <!-- Inset Panels (Bottom) -->
+  <rect x="5" y="8" width="2" height="4" fill="#5d4037" />
+  <rect x="9" y="8" width="2" height="4" fill="#5d4037" />
+  
+  <!-- Highlights for Depth -->
+  <rect x="4" y="2" width="8" height="1" fill="#916a4a" />
+  <rect x="4" y="2" width="1" height="12" fill="#916a4a" />
+  
+  <!-- Door Handle (Iron/Knob) -->
+  <rect x="10" y="8" width="1" height="2" fill="#212121" />
+  <rect x="11" y="8" width="1" height="1" fill="#9e9e9e" />
+</svg>
+

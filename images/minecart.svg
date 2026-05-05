@@ -1,0 +1,32 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+	<g style="
+		transform: rotate(90deg);
+		transform-origin: center;
+		transform-box: fill-box;
+	">
+
+		<!-- Minecart Body (14px wide to leave 1px wood visible on each side) -->
+		<rect x="1" y="0" width="14" height="16" fill="#A1A1A1" />
+
+		<!-- Outer Rim Shading -->
+		<rect x="1" y="0" width="14" height="1" fill="#DADADA" /> <!-- Top Rim -->
+		<rect x="1" y="0" width="1" height="16" fill="#DADADA" /> <!-- Left Rim -->
+		<rect x="14" y="0" width="1" height="16" fill="#737373" /> <!-- Right Rim -->
+		<rect x="1" y="15" width="14" height="1" fill="#737373" /> <!-- Bottom Rim -->
+
+		<!-- Interior Hollow (Elongated) -->
+		<rect x="3" y="2" width="10" height="12" fill="#2D2D2D" />
+		
+		<!-- Interior Depth Shadows -->
+		<rect x="3" y="2" width="10" height="2" fill="#1A1A1A" /> <!-- Front shadow -->
+		<rect x="3" y="2" width="2" height="12" fill="#1A1A1A" /> <!-- Side shadow -->
+
+		<!-- Texture Graining (Reflecting the thumbnail style) -->
+		<rect x="4" y="1" width="1" height="1" fill="#C1C1C1" />
+		<rect x="13" y="5" width="1" height="1" fill="#888888" />
+		<rect x="2" y="10" width="1" height="1" fill="#C1C1C1" />
+		<rect x="12" y="14" width="1" height="1" fill="#888888" />
+
+	</g>
+</svg>
+
