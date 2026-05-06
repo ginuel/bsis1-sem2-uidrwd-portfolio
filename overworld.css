@@ -18,17 +18,18 @@
   /* Keeps the blocky stone and jitters sharp */
   image-rendering: pixelated;
   image-rendering: crisp-edges;
-  width: 100vw;
+  width: 100%;
+	position: relative;
 	height: auto;
 	display: block;
 	/* Apply the mask using a CSS variable we will update via JS */
-	-webkit-mask-image: var(--biome-mask);
-	mask-image: var(--biome-mask);
+	/* -webkit-mask-image: var(--biome-mask); */
+	/* mask-image: var(--biome-mask); */
 	
-	-webkit-mask-size: 100% 100%;
-	mask-size: 100% 100%;
-	-webkit-mask-repeat: no-repeat;
-	mask-repeat: no-repeat;
+	/* -webkit-mask-size: 100% 100%; */
+	/* mask-size: 100% 100%; */
+	/* -webkit-mask-repeat: no-repeat; */
+	/* mask-repeat: no-repeat; */
 
 	/* This allows clicks to pass through transparent pixels to the background */
 	pointer-events: none;
@@ -39,7 +40,12 @@
 .stone-filler {
 		/* background-color: #808080; /* Matches front stone layer */
 		position: relative;
-    width: 100vw;
+    width: auto;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding-top: 2svh;
+		padding-bottom: 2svh;
     min-height: 100svh;
 		margin-top: -1px; /* Seamless transition */
     z-index: 0; /* Ensures it stays behind all content */
@@ -59,9 +65,16 @@
   }
 	.mc-scene {
 	}
+	.title {
+		visibility: hidden;
+	}
+	.title-image {
+		visibility: hidden;
+	}
 }
 
 .dimension-container {
 	display: flex;
 	flex-direction: column;
 }
+

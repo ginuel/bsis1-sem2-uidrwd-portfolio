@@ -4,6 +4,7 @@
 		<title>Ginuel's Portfolio!</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 		<link rel="stylesheet" href="clouds.css">
 		<link rel="stylesheet" href="overworld.css">
 		<link rel="stylesheet" href="pillar.css">
@@ -74,15 +75,27 @@
 			<div id="layer-mid" class="sky-layer"></div>
 			<div id="layer-front" class="sky-layer"></div>
 
-			<section id="home" style="width:100%;	">
-				<div>
-					<div id="home" class="stamp-head" style="position:absolute; margin: auto;">
+			<section id="home" style="width:100%;">
+				<div style="position: absolute;width:100%; display:flex; flex-direction: column; place-items: center; justify-content: flex-center; align-content: center;">
+					<div class="title" style="width: 50swh; justify-content: center; margin: 10svw;">
+						<h1 style="font-size: 4vh;">Ginuel Maquellao</h1>
+						<p style="font-size: 1.5vh;">Passionate about building clean, responsive, and user-friendly websites, also apps, also computer games.</p>
+						<p style="font-size: 1.5vh;">Based in Pangasinan, Philippines.</p>
+					</div>
+				</div>
+				<div style="position: absolute;width:100%; display:flex; flex-direction: column; place-items: center; justify-content: flex-center; align-content: center;">
+					<div class="stamp-head" style="position:relative; margin: auto; z-index: 50; margin: 10svw;  margin-top: 30svh;">
 						<div class="stamp-content">
 							<h1>I'm Ginuel!</h1>
 							<p>I like coding and making games and apps and anything.</p>
 						</div>
 					</div>
-					<div class="sky-viewport">
+					<div class="stamp-head title-image" style="margin-top: 10svh;">
+						<img class="stamp-content-image" src="images/profile.jpg">
+					</div>
+				</div>
+				<div>
+					<div class="sky-viewport" style="width:100vw;">
 						<div id="main-ender-wrapper" class="ender-wrapper" onclick="changeBiome(event, this)">
 							<img id="glitch-target" class="mc-scene"
 								src="images/overworld.svg" 
@@ -113,15 +126,20 @@
 
 						<div class="content">
 							<div class="stamp-head">
-								<img class="stamp-content-image" src="images/profile.jpg">
-							</div>
-							<div class="stamp-head">
-								<div class="stamp-content">
+								<div class="stamp-content" style="width: 70svw;align-content: center;" >
 									<h2>About</h2>
+									<h3>I'm Ginuel Maquellao!</h1>
+									<p>Passionate about building clean, responsive, and user-friendly websites, also apps, also computer games.</p>
+									<p>Based in Pangasinan, Philippines.</p>
+									<div class="stamp-head" style="margin: auto; margin-bottom:5svh;">
+										<img class="stamp-content-image" src="images/profile.jpg">
+									</div>
 									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
+									<p>I like to make apps, like computer games. Now, I am studying Information Systems 1. I am studying in La Verdad as First Year College.</p>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<img class="stamp-content-image" src="images/logo.svg">
+									</div>
+									<p>My logo means Ginuel and Random (Because I drew random things) and Importance (Because Diamond in Minecraft is colored Skyblue) and Patience (Because the whitespace Snail is slow but He won against the Hare) and it may also mean Patience is important.</p>
 								</div>
 							</div>
 						</div>
@@ -137,12 +155,58 @@
 
 						<div class="content">
 							<div class="stamp-head">
-								<div class="stamp-content">
+								<div class="stamp-content" style="width: 70svw;align-content: center;" >
 									<h2>Skills</h2>
-									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
+									<p>I can use SQL, Java, Python. I can also use documents like PPT, Docx, Excel. I know AI and prompting for answers.</p>
+									<p>I can use phones efficiently by using modern tools.</p>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<div class="stamp-content">
+										<h3>SQL</h3>
+										<p>I like databases and how to normalize them and I like how they can be used to simplify data connections and data storage. It's great for ideas that use many data and they're all connected in some way.</p>
+										</div>
+									</div>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<div class="stamp-content">
+										<h3>Java</h3>
+										<p>I like Java. It really has its own way. Like every file is a class. But I like making games with it. It's a weird language. The conventions really make up its characteristics. Also, that it's part interpreted and compiled.</p>
+										</div>
+									</div>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<div class="stamp-content">
+										<h3>Python</h3>
+										<p>So Python. Python is cool. It's great for beginners; it limits experts. But it's cool for team projects, where yoy just wanna express yourself easily. But it's cool. You can access anything, and you have to define rules to not access them. It's widely used in Machine Learning.</p>
+										</div>
+									</div>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<div class="stamp-content">
+										<h3>PPT</h3>
+										<p>I'm not really good at PPTs. Maybe I like animating slide transitions. But I'm bad at it, too. AI can now do a PPT with a click. But I still like to manually do PPTs. Because PPT is cool when there's effort. But it's not bad to use AI. I use it too much.</p>
+										</div>
+									</div>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<div class="stamp-content">
+										<h3>Docx</h3>
+										<p>I like Docx. I like formatting. Docx of Word of Microsoft, is great. You can also automate making one, which is cool. But you need to learn python-docx. You can also use google colab, to make docx by code. But it's still cool to do them manually. I like Table of Contents. I like Title Pages, and I like how a good document looks.</p>
+										</div>
+									</div>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<div class="stamp-content">
+										<h3>Excel</h3>
+										<p>Excel is great. It lets you compute things, fast. I like formulas, and how they can be copied. And that there's visualizers now. I haven't tried it though. I am visualizing manually; maybe I'll use canva, but it's laggy on my phone. Sometimes AI can draw better than me. But we must use it ethically to avoid cheating.</p>
+										</div>
+									</div>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<div class="stamp-content">
+										<h3>AI Prompter</h3>
+										<p>I like AI. It lets me easily know something. It's even better than manual online search. It gives link now to credit sources it used. Which will help in research. I like how you can use people's AI for free. Because they believe it will be a good investment.</p>
+										</div>
+									</div>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<div class="stamp-content">
+										<h3>Phone User</h3>
+										<p>I like phones. I like tinkering with my phone. Sometimes I destroy phones. But youtube helps me fix them. But I only accidentally destroyed them. But phones help me study. They're really good for people.</p>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -156,12 +220,12 @@
 
 						<div class="content">
 							<div class="stamp-head">
-								<div class="stamp-content">
+								<div class="stamp-content" style="width: 70svw;align-content: center;" >
 									<h2>Achievements</h2>
-									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
+									<p>After the BSIS-1 First Semester, I was able to complete my Computer Programming 1 course.</p>
+									<p>I also completed Organization and Management course.</p>
+									<p>And we passed on our Computer Programming 2 Midterm project. It is DiceGuessingGame.</p>
+									<p>I was also able to graduate from highschool.</p>
 								</div>
 							</div>
 						</div>
@@ -174,12 +238,43 @@
 
 						<div class="content">
 							<div class="stamp-head">
-								<div class="stamp-content">
+								<div class="stamp-content" style="width: 70svw;align-content: center;" >
 									<h2>Projects</h2>
-									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<div class="stamp-content">
+											<h3>Project 1: My Portfolio</h3>
+											<p>This is the code I'm editing right now.</p>
+											<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+												<img class="stamp-content-image" src="images/project1.jpg">
+											</div>
+											<p>This is output of the code I am editing for UID & RWD Final Project Portfolio.</p>
+											<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+												<img class="stamp-content-image" src="images/project2.jpg">
+											</div>
+										</div>
+									</div>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<div class="stamp-content">
+											<h3>Project 2: DiceGuessingGame</h3>
+											<p>This was the game about guessing Dice number.</p>
+											<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+												<img class="stamp-content-image" src="images/project3.jpg">
+											</div>
+										</div>
+									</div>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<div class="stamp-content">
+											<h3>Project 3: FishdaTyper</h3>
+											<p>This is where you fight fishes by typing the words they hold.</p>
+											<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+												<img class="stamp-content-image" src="images/project4.jpg">
+											</div>
+											<p>This is the map in FishdaTyper where you can go to a pond to fight fishes.</p>
+											<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+												<img class="stamp-content-image" src="images/project5.jpg">
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -192,24 +287,26 @@
 
 						<div class="content">
 							<div class="stamp-head">
-								<div class="stamp-content">
+								<div class="stamp-content" style="width: 70svw;align-content: center;" >
 									<h2>Contacts</h2>
-									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
-									<p>I like coding and making games and apps and anything.</p>
+									<p>You can contact me at Email and Facebook and Github</p>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<div class="stamp-content fs-1">
+											<p><a href="mailto:ginuel.maquellao@student.laverdad.edu.ph?subject=Hey, Ginuel!&body=Good day, Ginuel! Are you interested on "><i class="bi bi-envelope-at" style="color: #33E1FF"></i></a> EMAIL</p>
+										</div>
+									</div>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<div class="stamp-content fs-1">
+											<p><a href="https://fb.com/ginuel" target="_blank" rel="noopener noreferrer"><i class="bi bi-facebook" style="color: #33E1FF"></i></a> FACEBOOK</p>
+										</div>
+									</div>
+									<div class="stamp-head" style="margin: auto; margin-bottom:1svh;">
+										<div class="stamp-content fs-1">
+											<p><a href="https://github.com/ginuel" target="_blank" rel="noopener noreferrer"><i class="bi bi-github" style="color: #33E1FF;"></i></a> GITHUB</p>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="pillar right"></div>
-					</div>
-				</section>
-				<section id="footer" style="width:100%;">
-					<div class="stone-filler pillar-container" style="--filler-bg: url('images/back-end.svg'); --pillar-bg: url('images/pillar-end.svg');">
-						<div class="pillar left"></div>
-
-						<div class="content">
-							
 						</div>
 						<div class="pillar right"></div>
 					</div>
@@ -218,14 +315,29 @@
 		</main>
 
 		<footer>
-			<!-- <section id="footer" class="stone-filler"> -->
-			<!-- </section> -->
-		</footer>
+			<section id="footer" style="width:100%;">
+				<div class="stone-filler pillar-container" style="--filler-bg: url('images/back-end.svg'); --pillar-bg: url('images/pillar-end.svg');">
+					<div class="pillar left"></div>
 
+					<div class="content">
+						<div class="stamp-head" style="position: relative; margin-top: 90vh;">
+							<div class="stamp-content" style="width: 70svw;">
+								<p style="text-align: center;">&copy; 2026 Ginuel M. Maquellao.</p>
+							</div>
+						</div>
+					</div>
+					<div class="pillar right"></div>
+				</div>
+			</section>
+		</footer>
 		<script src="sun.js"></script>
 		<script src="clouds.js"></script>
 		<script src="glitch.js"></script>
 		<script src="biomes.js"></script>
 		<script src="rail-nav.js"></script>
+		<!-- Download bootstrap -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+		<!-- Download bootstrap icons -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"></script>
 	</body>
 </html>

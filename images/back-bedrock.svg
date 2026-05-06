@@ -1,20 +1,24 @@
-<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-  <!-- Base Deep Gray/Black -->
-  <rect width="64" height="64" fill="#0a0a0a"/>
+<svg width="256" height="256" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">
+  <rect width="16" height="16" fill="#313131"/>
   
-  <!-- Blocky Bedrock Noise -->
-  <rect x="0" y="0" width="16" height="16" fill="#1a1a1a"/>
-  <rect x="32" y="0" width="16" height="16" fill="#151515"/>
-  <rect x="16" y="16" width="16" height="16" fill="#050505"/>
-  <rect x="48" y="16" width="16" height="16" fill="#1a1a1a"/>
+  <g fill="#000000" fill-opacity="0.4">
+    <rect x="0" y="1" width="1" height="1"/><rect x="2" y="0" width="2" height="1"/>
+    <rect x="5" y="3" width="1" height="2"/><rect x="8" y="1" width="1" height="1"/>
+    <rect x="12" y="0" width="1" height="2"/><rect x="15" y="4" width="1" height="1"/>
+    <rect x="1" y="7" width="2" height="1"/><rect x="4" y="6" width="1" height="1"/>
+    <rect x="10" y="8" width="2" height="2"/><rect x="14" y="7" width="1" height="1"/>
+    <rect x="0" y="12" width="1" height="1"/><rect x="3" y="14" width="2" height="1"/>
+    <rect x="7" y="11" width="1" height="3"/><rect x="11" y="13" width="2" height="1"/>
+    <rect x="15" y="15" width="1" height="1"/>
+  </g>
   
-  <!-- "Void Fog" Highlights (Deep Purple/Charcoal) -->
-  <rect x="8" y="40" width="8" height="8" fill="#120d1a"/>
-  <rect x="40" y="48" width="8" height="8" fill="#0d0814"/>
-  <rect x="56" y="0" width="8" height="8" fill="#120d1a"/>
-  
-  <!-- Darkest Crevices -->
-  <rect x="0" y="32" width="16" height="8" fill="#000000"/>
-  <rect x="32" y="32" width="8" height="16" fill="#000000"/>
+  <g fill="#FFFFFF" fill-opacity="0.2">
+    <rect x="4" y="1" width="1" height="1"/><rect x="7" y="0" width="1" height="1"/>
+    <rect x="1" y="4" width="1" height="1"/><rect x="10" y="2" width="2" height="1"/>
+    <rect x="14" y="1" width="1" height="1"/><rect x="6" y="7" width="2" height="1"/>
+    <rect x="3" y="9" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/>
+    <rect x="8" y="14" width="1" height="1"/><rect x="13" y="11" width="1" height="1"/>
+    <rect x="5" y="12" width="2" height="1"/><rect x="1" y="15" width="1" height="1"/>
+  </g>
 </svg>
 

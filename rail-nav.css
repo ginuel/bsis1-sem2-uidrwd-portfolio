@@ -18,11 +18,11 @@ body {
 	/* background-color: #f4f4f4; */
 
 	color: white; /* Sky Blue hex code */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, .5); /* Optional: slight glow */
+  text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.8); /* Optional: slight glow */
 	font-family: 'Montserrat', sans-serif;
     font-weight: 800;
 		font-size: 2.5vw;
-		line-height: 1.5;
+		line-height: 1.75;
 	/* align-content:center; */
 	/* justify-content: center; */
 
@@ -307,17 +307,14 @@ section {
 }
 
 
-.indicator, .nav-container, .nav-filler-rail, .nav-logo-point, .nav-logo, a, img {
+.indicator, .nav-container, .nav-filler-rail, .nav-logo-point, .nav-logo {
 	outline: none;
-	-webkit-tap-highlight-color: transparent; /* Removes the blue flash on mobile */
-    /* Prevents the callout menu on iOS */
+	-webkit-tap-highlight-color: transparent; 
     -webkit-touch-callout: none; 
     
-    /* Prevents selecting the image as if it were text */
     -webkit-user-select: none;
     user-select: none;
     
-    /* Disables dragging (which often triggers the menu) */
     -webkit-user-drag: none;
 }
 
