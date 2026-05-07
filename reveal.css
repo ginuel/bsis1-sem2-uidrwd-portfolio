@@ -1,0 +1,56 @@
+@container style(--scroll-animations: true) {} /* Wrapper check (optional) */
+
+/* 1. Define the Keyframes */
+@keyframes slideFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px) translateY(20px); /* Left and slightly down */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px) translateY(20px); /* Right and slightly down */
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(30px); /* Just slightly down */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 2. Configure the Scroll Behavior */
+.scroll-reveal {
+  /* Create a timeline for this specific element */
+  view-timeline-name: --item-visible;
+  view-timeline-axis: block;
+
+  /* Apply the animation linked to that timeline */
+  animation-timeline: --item-visible;
+  
+  /* range: entry [start%] cover [end%] 
+     The animation starts when it enters and finishes when it's 30% in */
+  animation-range: entry 10% cover 30%;
+  animation-fill-mode: both;
+}
+
+/* 3. Utility Classes */
+.from-left { animation-name: slideFromLeft; }
+.from-right { animation-name: slideFromRight; }
+.fade-down { animation-name: fadeInDown; }
+

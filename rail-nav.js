@@ -3,6 +3,8 @@ const points = document.querySelectorAll('.nav-point');
 let currentPoint = 0;
 
 let observer;
+let previousSection;
+let targetSection;
 
 /**
  * Refactored Move Function
@@ -19,7 +21,7 @@ function move(targetEl, sectionId, mustScroll = true) {
 
 
 		if (mustScroll) {
-			const targetSection = document.querySelector(sectionId);
+			targetSection = document.querySelector(sectionId);
 
 			const rect = targetSection.getBoundingClientRect();
 
@@ -32,6 +34,7 @@ function move(targetEl, sectionId, mustScroll = true) {
 					top: absoluteTop - nav.offsetHeight,
 					behavior: 'smooth'
 				});
+				triggerSectionAudioChange(targetSection);
 			}
 		}
 
@@ -64,9 +67,15 @@ function move(targetEl, sectionId, mustScroll = true) {
     currentPoint = id;
 
 		
-	window.addEventListener('scrollend', () => {
-    isNavigating = false;
-	}, { once: true }); // { once: true } auto-removes this listener after it fires
+	if (mustScroll) {
+		window.addEventListener('scrollend', () => {
+			isNavigating = false;
+			if (targetSection != previousSection) {
+				triggerSectionGlitch(targetSection);
+				previousSection = targetSection;
+			}
+		}, { once: true }); // { once: true } auto-removes this listener after it fires
+	}
 		
 }
 
@@ -96,6 +105,12 @@ observer = new IntersectionObserver((entries) => {
         // 5. Only move if the index has changed
         if (sectionIndex !== currentPoint && targetNavPoint) {
             move(targetNavPoint, `#${sectionId}`, false);
+            // Apply the textures to the root or a specific container
+						triggerSectionAudioChange(firstVisibleSection);
+						if (firstVisibleSection != previousSection) {
+							triggerSectionGlitch(firstVisibleSection);
+							previousSection = firstVisibleSection;
+						}
         }
     }
 }, { 

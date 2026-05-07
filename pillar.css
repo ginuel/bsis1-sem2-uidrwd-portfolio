@@ -20,7 +20,7 @@ body {
 }
 
 .pillar {
-    position: absolute; /* Positions the pillar relative to the container[span_2](start_span)[span_2](end_span) */
+    position: absolute; /* Positions the pillar relative to the container*/
     top: 0;
     height: 100%; 
     width: 8vw;
@@ -30,18 +30,20 @@ body {
     image-rendering: crisp-edges;
     background-image: var(--pillar-bg);
     pointer-events: auto; /* Re-enables interaction for the pillars themselves */
+		z-index: 0;
+		/* overflow: hidden; */
 }
 
 /* Applying these classes moves the pillar to the desired side */
 .pillar.left {
     left: 0;
-    box-shadow: 15px 25px 25px rgba(0, 0, 0, 0.7);
+    box-shadow: 15px 0px 25px rgba(0, 0, 0, 0.7);
     border-right: 2px solid rgba(0,0,0,0.4);
 }
 
 .pillar.right {
     right: 0;
-    box-shadow: -15px 25px 25px rgba(0, 0, 0, 0.7);
+    box-shadow: -15px 0px 25px rgba(0, 0, 0, 0.7);
     border-left: 2px solid rgba(0,0,0,0.4);
 }
 
@@ -57,6 +59,47 @@ body {
 		flex-direction: column;
     font-family: sans-serif;
     z-index: 1;
-		gap: 2vw;
+		/* margin-top: 10vh; */
+		margin-bottom: 10vh;
+		gap: 5vh;
+}
+
+/* Background-specific canvas */
+.section-noise-canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0;
+    z-index: 4; /* Over pillars, under content if desired */
+    transition: opacity 0.2s ease;
+}
+
+/* --- Section Glitch State --- */
+/* The glitch state specific to this class */
+.is-section-glitching .stone-filler {
+    filter: url('images/glitch-noise.svg#ender-confusion') brightness(1.2);
+		transition: filter 0.1s ease, transform 0.1s ease;
+    /* Prevent user interaction during the chaotic glitch if desired */
+    pointer-events: none;
+}
+
+.is-section-glitching .pillar {
+    filter: drop-shadow(8px 0px #ff00ff) drop-shadow(-8px 0px #00ffff);
+}
+
+.is-section-glitching .section-noise-canvas {
+    opacity: 1;
+}
+
+/* Subtle background jitter */
+.is-section-glitching {
+    animation: section-vibration 0.1s steps(2) infinite;
+}
+
+@keyframes section-vibration {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(0px, 0px); }
 }
 

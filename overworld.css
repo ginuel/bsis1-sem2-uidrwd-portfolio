@@ -3,7 +3,7 @@
 }
 
 .sky-viewport {
-  height: calc(100svh - var(--text-offset)) !important; /* Mobile UI fix */
+  height: calc(102svh - var(--text-offset)) !important; /* Mobile UI fix */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -33,7 +33,7 @@
 
 	/* This allows clicks to pass through transparent pixels to the background */
 	pointer-events: none;
-	z-index: 2;
+	z-index: 5;
 }
 
 
@@ -47,14 +47,16 @@
 		padding-top: 2svh;
 		padding-bottom: 2svh;
     min-height: 100svh;
-		margin-top: -1px; /* Seamless transition */
+		margin: 0;
+		margin-top: -1vh; /* Seamless transition */
     z-index: 0; /* Ensures it stays behind all content */
     background-image: var(--filler-bg);
     background-size: 20% auto; 
     background-repeat: repeat;
     image-rendering: pixelated;
     pointer-events: none;
-		margin: 0;
+		contain: paint;
+    /* transition: transform 0.3s ease; */
 }
 
 

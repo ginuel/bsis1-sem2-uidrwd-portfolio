@@ -37,6 +37,14 @@ body {
 	align-content:center;
 }
 
+h1 {
+  font-size: 4vw;
+}
+
+h3 {
+  font-size: 3vw;
+}
+
 .nav-label, .nav-logo-label {
 	padding: 0.5vw;
 }
