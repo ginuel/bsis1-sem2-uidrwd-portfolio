@@ -19,19 +19,20 @@ async function preloadAssets() {
         loaded++;
         const percent = Math.round((loaded / total) * 100);
         const bar = document.getElementById('loading-bar');
-        const text = document.getElementById('loading-text');
+        const progress = document.getElementById('progress');
+        // const text = document.getElementById('loading-text');
         const status = document.getElementById('loading-status');
-        const phase = document.getElementById('loading-phase');
+        // const phase = document.getElementById('loading-phase');
         const btn = document.getElementById('enter-btn');
 
         if (bar) bar.style.width = `${percent}%`;
-        if (text) text.innerText = `${percent}%`;
+        // if (text) text.innerText = `${percent}%`;
         if (status) status.innerText = `Loaded: ${url.split('/').pop()}`;
 
         if (loaded === total) {
-            phase.innerText = "Phase: Ready!";
-            status.innerText = "All assets loaded successfully.";
-            
+            // phase.innerText = "Phase: Ready!";
+            progress.style.display = "none";
+						status.style.display = "none";
             // Show the Enter button
             btn.style.display = "inline-block";
             
