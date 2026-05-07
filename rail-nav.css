@@ -132,6 +132,7 @@ section {
 	/* Hide the indicator if it somehow goes out of bounds */
 	/* overflow: hidden;  */
 	box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+	pointer-events: all;
 }
 
 .stamp-content {
@@ -307,14 +308,14 @@ section {
 }
 
 
-.indicator, .nav-container, .nav-filler-rail, .nav-logo-point, .nav-logo {
+.indicator, .nav-container, .nav-filler-rail, .nav-logo-point, .nav-logo, a, img {
 	outline: none;
 	-webkit-tap-highlight-color: transparent; 
     -webkit-touch-callout: none; 
-    
+
     -webkit-user-select: none;
     user-select: none;
-    
+
     -webkit-user-drag: none;
 }
 
