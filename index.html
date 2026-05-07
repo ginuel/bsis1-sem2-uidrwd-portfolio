@@ -12,8 +12,8 @@
 		<link rel="stylesheet" href="world.css">
 		<link rel="stylesheet" href="glitch.css">
 		<link rel="stylesheet" href="rail-nav.css">
-		<link rel="stylesheet" href="rail-nav.css">
 		<link rel="stylesheet" href="reveal.css">
+		<link rel="stylesheet" href="loader.css">
 
 		<!-- Place this inside your <head> -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -418,6 +418,31 @@
 			</section>
 		</footer>
 
+		<div id="loading-screen" style="position:fixed; inset:0; background:#111; color:white; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:9999; font-family:sans-serif;">
+    <h2>Loading Minecraft Assets</h2>
+    <div style="width:200px; height:10px; background:#333; border-radius:5px; overflow:hidden;">
+        <div id="loading-bar" style="width:0%; height:100%; background:#55ff55; transition: width 0.3s;"></div>
+    </div>
+    <p id="loading-text">0%</p>
+    <button id="start-btn" style="display:none; margin-top:20px; padding:10px 20px; cursor:pointer;">Start Game</button>
+		</div>
+
+<div id="loading-screen">
+    <h2>INITIALIZING WORLD</h2>
+    
+    <div class="bar-container">
+        <div id="loading-bar"></div>
+    </div>
+    
+    <div class="stats-row">
+        <p id="loading-text">0%</p>
+        <!-- This will show the file names -->
+        <p id="loading-status">Scanning assets...</p>
+    </div>
+    
+    <button id="start-btn">Join World</button>
+</div>
+
 
 		<script src="sun.js"></script>
 		<script src="clouds.js"></script>
@@ -426,6 +451,7 @@
 		<script src="biomes.js"></script>
 		<script src="rail-nav.js"></script>
 		<script src="audio.js"></script>
+		<script src="loader.js"></script>
 		<!-- Download bootstrap -->
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 		<!-- Download bootstrap icons -->
