@@ -51,7 +51,8 @@ const MinecraftAudio = (() => {
  * Simplified Trigger
  */
 function triggerSectionAudioChange(section) {
+		if (isPreloading) return;
+
     const music = section.getAttribute('data-music');
     MinecraftAudio.update(music);
 }
-
