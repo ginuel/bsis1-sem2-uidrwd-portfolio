@@ -55,3 +55,28 @@ function triggerSectionAudioChange(section) {
     MinecraftAudio.update(music);
 }
 
+// Separate block to global-preload all music found in data-music attributes
+(() => {
+    const allMusicSources = new Set();
+
+    // 1. Collect every unique track from all sections
+    document.querySelectorAll('[data-music]').forEach(el => {
+        const tracks = el.getAttribute('data-music').split(',');
+        tracks.forEach(src => {
+            const cleanSrc = src.trim();
+            if (cleanSrc) allMusicSources.add(cleanSrc);
+        });
+    });
+
+    // 2. Map sources to preloading Audio objects
+    // We store them in a constant to prevent garbage collection
+    const preloaderCache = Array.from(allMusicSources).map(src => {
+        const audio = new Audio();
+        audio.preload = "auto";
+        audio.src = src;
+        return audio;
+    });
+
+    console.log(`Preloading ${preloaderCache.length} unique tracks...`);
+})();
+
