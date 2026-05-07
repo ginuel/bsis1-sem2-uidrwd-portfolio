@@ -1,103 +1,67 @@
-const MinecraftLoader = (() => {
-    const screen = document.getElementById('loading-screen');
-    const bar = document.getElementById('loading-bar');
-    const text = document.getElementById('loading-text');
-    const status = document.getElementById('loading-status'); // New status element
-    const btn = document.getElementById('start-btn');
-
-    const manualImages = [
-        'images/home-icon.svg',
-        'images/about-icon.svg',
-        'images/skills-icon.svg',
-        'images/achievements-icon.svg',
-        'images/projects-icon.svg',
-        'images/contacts-icon.svg',
-        'images/contacts-icon.svg',
-				'images/profile.jpg',
-				'images/project1.jpg',
-				'images/project2.jpg',
-				'images/project3.jpg',
-				'images/project4.jpg',
-				'images/project5.jpg',
-				'images/cloud-block.svg',
-				'images/glitch-noise.svg',
-				'images/logo.svg',
-				'images/minecart.svg',
-				'images/rail.svg',
-				'images/sun.svg',
-				'images/stamp-head.svg',
-				'images/stone-noise.svg',
-		];
-
-    const getUniqueAssets = () => {
-        const audioSet = new Set();
-        const imageSet = new Set(manualImages);
-
-        document.querySelectorAll('[data-music], [data-images]').forEach(el => {
-            const m = el.getAttribute('data-music');
-            const i = el.getAttribute('data-images');
-            if (m) m.split(',').forEach(s => s.trim() && audioSet.add(s.trim()));
-            if (i) i.split(',').forEach(s => s.trim() && imageSet.add(s.trim()));
+async function preloadAssets() {
+    const images = new Set();
+    const audios = new Set();
+    
+    // 1. Collect all assets from <img> tags and data attributes
+    document.querySelectorAll('img[src]').forEach(img => images.add(img.getAttribute('src')));
+    document.querySelectorAll('[data-images], [data-music], [data-filler], [data-pillar]').forEach(el => {
+        const vals = el.dataset.images || el.dataset.music || el.dataset.filler || el.dataset.pillar;
+        vals.split(',').forEach(v => {
+            const url = v.replace(/url\(['"]?(.+?)['"]?\)/, '$1').trim();
+            if (url.endsWith('.mp3')) audios.add(url); else images.add(url);
         });
+    });
 
-        document.querySelectorAll('[data-filler], [data-pillar]').forEach(el => {
-            const f = el.getAttribute('data-filler');
-            const p = el.getAttribute('data-pillar');
-            if (f) imageSet.add(f.trim());
-            if (p) imageSet.add(p.trim());
-        });
+    const total = images.size + audios.size;
+    let loaded = 0;
 
-        return { audio: Array.from(audioSet), images: Array.from(imageSet) };
-    };
+    const updateProgress = (url) => {
+        loaded++;
+        const percent = Math.round((loaded / total) * 100);
+        const bar = document.getElementById('loading-bar');
+        const text = document.getElementById('loading-text');
+        const status = document.getElementById('loading-status');
+        const phase = document.getElementById('loading-phase');
+        const btn = document.getElementById('enter-btn');
 
-    const init = async () => {
-        const assets = getUniqueAssets();
-        const total = assets.audio.length + assets.images.length;
-        let loaded = 0;
+        if (bar) bar.style.width = `${percent}%`;
+        if (text) text.innerText = `${percent}%`;
+        if (status) status.innerText = `Loaded: ${url.split('/').pop()}`;
 
-        const updateStatus = (path) => {
-            loaded++;
-            // Extract filename from path for cleaner display
-            const filename = path.split('/').pop();
-            const progress = Math.round((loaded / total) * 100);
+        if (loaded === total) {
+            phase.innerText = "Phase: Ready!";
+            status.innerText = "All assets loaded successfully.";
             
-            if (bar) bar.style.width = `${progress}%`;
-            if (text) text.innerText = `${progress}%`;
-            if (status) status.innerText = `Loading: ${filename}`;
-        };
-
-        if (total === 0) return finishLoading();
-
-        const audioPromises = assets.audio.map(src => new Promise(res => {
-            const a = new Audio();
-            a.preload = "auto";
-            a.oncanplaythrough = a.onerror = () => { updateStatus(src); res(); };
-            a.src = src;
-            (window._preloadCache = window._preloadCache || []).push(a);
-        }));
-
-        const imagePromises = assets.images.map(src => new Promise(res => {
-            const img = new Image();
-            img.onload = img.onerror = () => { updateStatus(src); res(); };
-            img.src = src;
-        }));
-
-        await Promise.all([...audioPromises, ...imagePromises]);
-        finishLoading();
+            // Show the Enter button
+            btn.style.display = "inline-block";
+            
+            // Click event to remove the loader
+            btn.onclick = () => {
+                const wrapper = document.getElementById('loader-wrapper');
+                wrapper.style.opacity = '0';
+                setTimeout(() => wrapper.remove(), 500);
+                
+                // Optional: Start background music here if needed
+                triggerSectionAudioChange(document.getElementById('home')); 
+            };
+        }
     };
 
-    const finishLoading = () => {
-        if (status) status.innerText = "All assets verified!";
-        if (text) text.innerText = "100%";
-        btn.style.display = "block";
-        btn.onclick = () => {
-            screen.style.opacity = '0';
-            setTimeout(() => screen.remove(), 500);
-        };
-    };
+    // 2. Map sets to loading promises
+    const imagePromises = [...images].map(url => new Promise(res => {
+        const img = new Image();
+        img.onload = img.onerror = () => { updateProgress(url); res(); };
+        img.src = url;
+    }));
 
-    return { init };
-})();
+    const audioPromises = [...audios].map(url => new Promise(res => {
+        const audio = new Audio();
+        audio.oncanplaythrough = audio.onerror = () => { updateProgress(url); res(); };
+        audio.src = url;
+    }));
 
-MinecraftLoader.init();
+    await Promise.all([...imagePromises, ...audioPromises]);
+}
+
+window.addEventListener('DOMContentLoaded', preloadAssets);
 
