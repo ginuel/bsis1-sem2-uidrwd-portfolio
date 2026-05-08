@@ -10,6 +10,8 @@
   padding-bottom: env(safe-area-inset-bottom, 0px);
 	/* pointer-events: none; */
 	z-index: 2;
+	overflow-y: hidden;
+	contain: paint;
 }
 
 
@@ -22,6 +24,7 @@
 	position: relative;
 	height: auto;
 	display: block;
+	contain: paint;
 	/* Apply the mask using a CSS variable we will update via JS */
 	/* -webkit-mask-image: var(--biome-mask); */
 	/* mask-image: var(--biome-mask); */

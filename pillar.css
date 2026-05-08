@@ -17,6 +17,7 @@ body {
     height: 100%; /* This dictates the height the pillars expand to */
     pointer-events: none; /* Allows clicking on content behind the container */
     z-index: 1;
+		contain: paint;
 }
 
 .pillar {
@@ -32,6 +33,7 @@ body {
     pointer-events: auto; /* Re-enables interaction for the pillars themselves */
 		z-index: 0;
 		/* overflow: hidden; */
+		contain: paint;
 }
 
 /* Applying these classes moves the pillar to the desired side */

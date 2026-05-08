@@ -74,20 +74,31 @@ async function preloadAssets() {
         if (status) status.innerText = `Loading asset: ${url.split('/').pop()}`;
 
         if (loaded === total) {
-            
+						const wrapper = document.getElementById('loader-wrapper');
+
 						if (mustHideLoader || mustSkipEnter) {
-							const wrapper = document.getElementById('loader-wrapper');
 							wrapper.remove()
-							triggerSectionAudioChange(document.getElementById('home')); 
+							homeSection = document.getElementById('home');
+							triggerSectionAudioChange(homeSection);
+							triggerSectionGlitch(homeSection);
+							window.scrollTo({
+								top: 0,
+								behavior: 'smooth'
+							});
 						} else {
 							if (progress) progress.style.display = "none";
 							if (status) status.style.display = "none";
 							btn.style.display = "inline-block";
 							btn.onclick = () => {
-									const wrapper = document.getElementById('loader-wrapper');
 									wrapper.style.opacity = '0';
 									setTimeout(() => wrapper.remove(), 500);
-									triggerSectionAudioChange(document.getElementById('home')); 
+									homeSection = document.getElementById('home');
+									triggerSectionAudioChange(homeSection);
+									triggerSectionGlitch(homeSection);
+									window.scrollTo({
+										top: 0,
+										behavior: 'smooth'
+									});
 							};
 
 						}

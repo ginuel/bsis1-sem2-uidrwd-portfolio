@@ -3,8 +3,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 200vh; /* Loop buffer */
+    width: 100svw;
+    height: 100svh; /* Loop buffer */
     background-repeat: repeat;
     background-position: center top;
     image-rendering: pixelated; /* Keeps blocky edges sharp */
@@ -13,6 +13,8 @@
     /* Hint to browser to keep this on the GPU */
     will-change: transform;
     transform: translate3d(0, 0, 0);
+		overflow-y: hidden;
+		overflow-x: hidden;
 }
 
 

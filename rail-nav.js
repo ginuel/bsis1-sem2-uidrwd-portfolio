@@ -66,7 +66,6 @@ function move(targetEl, sectionId, mustScroll = true) {
     // 6. Update Tracker
     currentPoint = id;
 
-		
 	if (mustScroll) {
 		window.addEventListener('scrollend', () => {
 			isNavigating = false;
@@ -127,11 +126,4 @@ window.oncontextmenu = function(event) {
      event.stopPropagation();
      return false;
 };
-
-// // Add this to prevent the "selection" highlight that triggers the menu
-// document.addEventListener('touchstart', function(e) {
-//     if (e.target.tagName === 'IMG') {
-//         e.preventDefault();
-//     }
-// }, { passive: false });
 
