@@ -298,12 +298,16 @@ section {
 	}
 	90% {
 		transform: translateX(0);
-		opacity: .25;
+		opacity: .1;
+	}
+	100% {
+		transform: translateY(5vw);
+		opacity: 0;
+		display: block;
 	}
 	to {
     /* transform: translateY(-10vh); */
-		transform: translateX(100vw);
-		opacity: .1;
+		display:none;
 	}
 }
 
