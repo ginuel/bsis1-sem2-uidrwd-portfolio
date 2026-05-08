@@ -20,7 +20,7 @@ async function preloadAssets() {
 			return;
 		}
 
-    const CACHE_NAME = 'ginuel-cache-v4'; // Name for local storage
+    const CACHE_NAME = 'ginuel-cache-v1'; // Name for local storage
     const images = new Set([
 				'images/home-icon.svg',
         'images/about-icon.svg',
