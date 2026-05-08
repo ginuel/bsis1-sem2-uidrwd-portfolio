@@ -50,6 +50,8 @@ async function changeBiome(event, wrapper) {
 				}
 			
         console.log("Sequence complete.");
+
+				triggerSectionAudioChange(document.getElementById('home'));
     }
 		
 }
