@@ -2,9 +2,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
-    background: #111; /* Minecraft-style dark background */
+    background: black; /* Minecraft-style dark background */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,7 +37,7 @@
 
 #loading-status {
     font-size: 0.8rem;
-    color: #888;
+    color: skyblue;
     margin-top: 10px;
 }
 

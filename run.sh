@@ -2,7 +2,7 @@
 
 SCRIPT_DIR=$(dirname ${BASH_SOURCE[0]})
 
-cd "$SCRIPT_DIR"
+cd "$SCRIPT_DIR/Maquellao_Portfolio"
 
 port=$(shuf -i 49152-65535 -n 1)
 
