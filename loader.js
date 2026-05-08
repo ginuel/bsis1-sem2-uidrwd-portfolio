@@ -1,14 +1,21 @@
 let isPreloading = false;
+let mustPreload = false;
 let mustHideLoader = true;
 
 async function preloadAssets() {
 
-		if (mustHideLoader) {
+		if (mustHideLoader || !mustPreload) {
 			const wrapper = document.getElementById('loader-wrapper');
       wrapper.style.opacity = '0';
+			setTimeout(() => {
+				wrapper.style.display = 'none';
+			}, 500);
 		}
 
-    isPreloading = true;
+		if (!mustPreload) {
+			return;
+		}
+
     const CACHE_NAME = 'ginuel-cache-v1'; // Name for local storage
     const images = new Set([
 				'images/home-icon.svg',
