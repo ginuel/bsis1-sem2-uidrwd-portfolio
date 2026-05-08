@@ -67,12 +67,19 @@ async function preloadAssets() {
             if (status) status.style.display = "none";
             btn.style.display = "inline-block";
             
-            btn.onclick = () => {
-                const wrapper = document.getElementById('loader-wrapper');
-                wrapper.style.opacity = '0';
-                setTimeout(() => wrapper.remove(), 500);
-                triggerSectionAudioChange(document.getElementById('home')); 
-            };
+						if (mustHideLoader) {
+							const wrapper = document.getElementById('loader-wrapper');
+							wrapper.remove()
+							triggerSectionAudioChange(document.getElementById('home')); 
+						} else {
+							btn.onclick = () => {
+									const wrapper = document.getElementById('loader-wrapper');
+									wrapper.style.opacity = '0';
+									setTimeout(() => wrapper.remove(), 500);
+									triggerSectionAudioChange(document.getElementById('home')); 
+							};
+
+						}
         }
     };
 
