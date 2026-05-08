@@ -1,6 +1,7 @@
 // Config
 let mustPreload = true;
 let mustHideLoader = false;
+let mustSkipEnter = true;
 
 // Globals
 let isPreloading = false;
@@ -74,7 +75,7 @@ async function preloadAssets() {
 
         if (loaded === total) {
             
-						if (mustHideLoader) {
+						if (mustHideLoader || mustSkipEnter) {
 							const wrapper = document.getElementById('loader-wrapper');
 							wrapper.remove()
 							triggerSectionAudioChange(document.getElementById('home')); 
