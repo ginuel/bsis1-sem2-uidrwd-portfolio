@@ -60,18 +60,18 @@ async function preloadAssets() {
         const btn = document.getElementById('enter-btn');
 
         if (bar) bar.style.width = `${percent}%`;
-        if (status) status.innerText = `Cached: ${url.split('/').pop()}`;
+        if (status) status.innerText = `Loading asset: ${url.split('/').pop()}`;
 
         if (loaded === total) {
-            if (progress) progress.style.display = "none";
-            if (status) status.style.display = "none";
-            btn.style.display = "inline-block";
             
 						if (mustHideLoader) {
 							const wrapper = document.getElementById('loader-wrapper');
 							wrapper.remove()
 							triggerSectionAudioChange(document.getElementById('home')); 
 						} else {
+							if (progress) progress.style.display = "none";
+							if (status) status.style.display = "none";
+							btn.style.display = "inline-block";
 							btn.onclick = () => {
 									const wrapper = document.getElementById('loader-wrapper');
 									wrapper.style.opacity = '0';
