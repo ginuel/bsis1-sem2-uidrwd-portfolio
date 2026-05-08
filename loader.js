@@ -1,6 +1,9 @@
-let isPreloading = false;
-let mustPreload = false;
+// Config
+let mustPreload = true;
 let mustHideLoader = true;
+
+// Globals
+let isPreloading = false;
 
 async function preloadAssets() {
 
@@ -16,7 +19,7 @@ async function preloadAssets() {
 			return;
 		}
 
-    const CACHE_NAME = 'ginuel-cache-v1'; // Name for local storage
+    const CACHE_NAME = 'ginuel-cache-v3'; // Name for local storage
     const images = new Set([
 				'images/home-icon.svg',
         'images/about-icon.svg',
