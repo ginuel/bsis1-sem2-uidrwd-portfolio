@@ -11,7 +11,7 @@ function triggerSectionGlitch(vcurrent, duration = 100) {
     const startTime = performance.now();
 
     // 1. SETUP: Prepare every section for the glitch
-		[vcurrent].forEach(section => {
+		allSections.forEach(section => {
         const canvas = section.querySelector('.section-noise-canvas');
         const wrapper = section.querySelector('.stone-filler');
         
@@ -29,7 +29,7 @@ function triggerSectionGlitch(vcurrent, duration = 100) {
         if (!isGlitching) return;
         const progress = (time - startTime) / duration;
         
-        [vcurrent].forEach(section => {
+        allSections.forEach(section => {
             const canvas = section.querySelector('.section-noise-canvas');
             if (canvas) drawEnderLayers(canvas, null, progress);
         });

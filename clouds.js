@@ -6,17 +6,17 @@ const layerSettings = [
     { 
         id: 'layer-back', 
         path: 'baked/cloud_back.png', 
-        speed: 0.03, blockSize: 4, threshold: 0.48, scale: 0.04, mapW: 128, mapH: 256
+        speed: 0.03, blockSize: 12, threshold: 0.48, scale: 0.03, mapW: 128, mapH: 256
     },
     { 
         id: 'layer-mid', 
         path: 'baked/cloud_mid.png', 
-        speed: 0.09, blockSize: 9, threshold: 0.52, scale: 0.09, mapW: 64, mapH: 128 
+        speed: 0.09, blockSize: 20, threshold: 0.52, scale: 0.05, mapW: 64, mapH: 128 
     },
     { 
         id: 'layer-front', 
         path: 'baked/cloud_front.png', 
-        speed: 0.20, blockSize: 16, threshold: 0.56, scale: 0.16, mapW: 32, mapH: 64 
+        speed: 0.20, blockSize: 32, threshold: 0.56, scale: 0.08, mapW: 32, mapH: 64 
     }
 ];
 
