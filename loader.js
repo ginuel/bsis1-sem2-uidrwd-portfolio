@@ -1,6 +1,13 @@
 let isPreloading = false;
+let mustHideLoader = true;
 
 async function preloadAssets() {
+
+		if (mustHideLoader) {
+			const wrapper = document.getElementById('loader-wrapper');
+      wrapper.style.opacity = '0';
+		}
+
     isPreloading = true;
     const CACHE_NAME = 'ginuel-cache-v1'; // Name for local storage
     const images = new Set([
@@ -84,4 +91,3 @@ async function preloadAssets() {
 }
 
 window.addEventListener('DOMContentLoaded', preloadAssets);
-
