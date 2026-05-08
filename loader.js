@@ -2,6 +2,12 @@
 let mustPreload = true;
 let mustHideLoader = true;
 
+const isLocallyDeployed = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+
+if (!isLocallyDeployed) {
+	mustHideLoader = false;
+}
+
 // Globals
 let isPreloading = false;
 
@@ -19,7 +25,7 @@ async function preloadAssets() {
 			return;
 		}
 
-    const CACHE_NAME = 'ginuel-cache-v3'; // Name for local storage
+    const CACHE_NAME = 'ginuel-cache-v2'; // Name for local storage
     const images = new Set([
 				'images/home-icon.svg',
         'images/about-icon.svg',
