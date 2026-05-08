@@ -1,7 +1,7 @@
 // Config
 let mustPreload = true;
 let mustHideLoader = false;
-let mustSkipEnter = true;
+let mustSkipEnter = false;
 
 // Globals
 let isPreloading = false;
